@@ -1,13 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Fondamento&display=swap');
+
+
+body{
+  margin: 10px;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: rgb(56, 24, 16);
+}
+
+h1{
+  font-family: 'Fondamento', cursive;
+  font-weight: 800;
+  color: rgb(255, 187, 0);
+}
+
+:root{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+p{
+  color: rgb(255, 187, 0);
+}
+
+th{
+  color: rgb(255, 187, 0);
+}
+
+td{
+  color: white;
+}
+
 
 
 [data-action] {
     cursor: pointer;
   }
   
-  .sorting {
+  /* .sorting {
     filter: grayscale(100%);
   }
-  
+   */
   #sorting th.sortby {
     text-decoration: underline;
   }
@@ -25,12 +57,14 @@
   }
   
   #list tbody tr td {
-    padding: 4px;
+    padding: 70px;
     
   }
+
+  
   
   #list tbody tr:nth-child(odd) td {
-    background-color: rgba(201, 120, 255, 0.397);
+    background-color: rgb(98, 7, 7);
     border-right: rgb(240, 249, 255) 1px dotted;
   }
   
@@ -71,7 +105,7 @@
   }
   
   .dialogcontent {
-    background-color: rgb(233, 233, 255);
+    background-color: rgb(0, 0, 0);
     font-family: Arial, Helvetica, sans-serif;
     padding: 10vw 8vw 8vw 8vw;
     position: relative;
@@ -115,9 +149,9 @@
 
 
 #student-popup {
-  background-color: aliceblue;
-  position: absolute;
-  top: 5%;
+  background-color: rgb(116, 43, 43);
+  position:fixed;
+  top: 18%;
   left: 25%;
   padding: 2rem;
 }
