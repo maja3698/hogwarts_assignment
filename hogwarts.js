@@ -1,129 +1,14 @@
 "use strict";
 
-const pureBloodFamilies = [
-  "Boot",
+const pureBloodFamilies = ["Boot", "Cornfoot", "Abbott", "Avery", "Black", "Blishwick", "Brown", "Bulstrode", "Burke", "Carrow",
 
-  "Cornfoot",
+  "Crabbe", "Crouch", "Fawley", "Flint", "Gamp", "Gaunt", "Goyle", "Greengrass", "Kama", "Lestrange", "Longbottom", "MacDougal", "Macmillan",
 
-  "Abbott",
+  "Malfoy","Max", "Moody", "Nott", "Ollivander", "Parkinson", "Peverell", "Potter", "Prewett", "Prince", "Rosier", "Rowle", "Sayre", "Selwyn",
 
-  "Avery",
+  "Shacklebolt", "Shafiq", "Slughorn", "Slytherin", "Travers", "Tremblay", "Tripe", "Urquart", "Weasley", "Yaxley", "Bletchley", "Dumbledore",
 
-  "Black",
-
-  "Blishwick",
-
-  "Brown",
-
-  "Bulstrode",
-
-  "Burke",
-
-  "Carrow",
-
-  "Crabbe",
-
-  "Crouch",
-
-  "Fawley",
-
-  "Flint",
-
-  "Gamp",
-
-  "Gaunt",
-
-  "Goyle",
-
-  "Greengrass",
-
-  "Kama",
-
-  "Lestrange",
-
-  "Longbottom",
-
-  "MacDougal",
-
-  "Macmillan",
-
-  "Malfoy",
-
-  "Max",
-
-  "Moody",
-
-  "Nott",
-
-  "Ollivander",
-
-  "Parkinson",
-
-  "Peverell",
-
-  "Potter",
-
-  "Prewett",
-
-  "Prince",
-
-  "Rosier",
-
-  "Rowle",
-
-  "Sayre",
-
-  "Selwyn",
-
-  "Shacklebolt",
-
-  "Shafiq",
-
-  "Slughorn",
-
-  "Slytherin",
-
-  "Travers",
-
-  "Tremblay",
-
-  "Tripe",
-
-  "Urquart",
-
-  "Weasley",
-
-  "Yaxley",
-
-  "Bletchley",
-
-  "Dumbledore",
-
-  "Fudge",
-
-  "Gibbon",
-
-  "Gryffindor",
-
-  "Higgs",
-
-  "Lowe",
-
-  "Macnair",
-
-  "Montague",
-
-  "Mulciber",
-
-  "Orpington",
-
-  "Pyrites",
-
-  "Perks",
-
-  "Runcorn",
-
-  "Wilkes",
+  "Fudge", "Gibbon", "Gryffindor", "Higgs", "Lowe", "Macnair", "Montague", "Mulciber", "Orpington", "Pyrites", "Perks", "Runcorn", "Wilkes",
 
   "Zabini",
 ];
@@ -360,6 +245,8 @@ function displayStudent(student) {
       document.querySelector("#student-pic").src = `/students-pics/${student.lastname}_${student.firstname.charAt(0)}.png`;
     }
 
+    document.querySelector("#popup-close").addEventListener("click", closePU);
+
     //     <div id="popup-header">
     //     <div id="popup-title">
     //         <h2 id="popup-name">Harry Potter</h2>
@@ -380,3 +267,9 @@ function displayStudent(student) {
   };
   document.querySelector("#list tbody").appendChild(clone);
 };
+
+function closePU() {
+  document.querySelector("#student-popup").classList.add("hidden");
+  document.querySelector("#pref-popup").classList.add("hidden");
+  document.querySelector("#squad-popup").classList.add("hidden");
+}
