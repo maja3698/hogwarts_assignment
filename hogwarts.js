@@ -45,6 +45,7 @@ function setUp() {
   document.querySelectorAll("[data-action='filterH']").forEach((button) => button.addEventListener("click", selectFilterH));
   document.querySelector(".filter-all").addEventListener("click", showAll);
 
+
   // SORTING EVENTS:
   document
 
