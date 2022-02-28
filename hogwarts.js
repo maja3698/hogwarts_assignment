@@ -19,6 +19,8 @@ window.addEventListener("DOMContentLoaded", setUp);
 
 let allStudents = [];
 let filterStudents;
+let expelledStudents = [];
+let regStudents = [];
 
 // let studentBlood = student.blood;
 // The prototype for all animals:
@@ -33,6 +35,7 @@ const Student = {
   prefect: false,
   sqaud: false,
   regStudent: true,
+  siblings: false,
 };
 
 function setUp() {
@@ -44,6 +47,8 @@ function setUp() {
   loadJSON();
   document.querySelectorAll("[data-action='filterH']").forEach((button) => button.addEventListener("click", selectFilterH));
   document.querySelector(".filter-all").addEventListener("click", showAll);
+
+  student.regStudent = true;
 
 
   // SORTING EVENTS:
@@ -110,6 +115,9 @@ function prepareObject(jsonObject) {
 
   // BOOLEAN FOR EXPELLED STUDENTS
 
+
+
+
   if (student.regStudent) {
     student.status = "Regular Student";
   } else {
@@ -117,6 +125,8 @@ function prepareObject(jsonObject) {
   }
 
   return student;
+
+   
 }
 
 
@@ -193,12 +203,22 @@ function filterBList(blood) {
 
   // let muggleStudents = filterStudents.filter(isMuggle);
 
-  displayList(filterStudents);
+  buildList(filterStudents);
 }
 
 function showAll() {
   filterStudents = allStudents;
   displayList(allStudents);
+}
+
+//build list
+function buildList(students) {
+  console.log("buildList");
+  const regStudents = filterStudents;
+  console.log("allStudents-End", allStudents);
+  console.log("regStudents-End", regStudents);
+  console.log("ExpelledStudents-End", expelledStudents);
+  displayList(regStudents);
 }
 
 function displayList(students) {
@@ -226,16 +246,34 @@ function displayStudent(student) {
   clone.querySelector("[data-field=house]").textContent = student.house;
   clone.querySelector("[data-field=blood-status]").textContent = student.blood;
 
+
+  if (student.regStudent) {
+    clone.querySelector("[data-field=status]").textContent = "Regular Student";
+  } else {
+    clone.querySelector("[data-field=status]").textContent = "Expelled Student";
+  }
+
   // EVENTLISTENERS FOR POPUP BOX
   clone.querySelector("[data-field='lname'").addEventListener("click", openPU);
   clone.querySelector("[data-field='fname'").addEventListener("click", openPU);
+
+
   function openPU() {
     console.log("show student info", student.lastname);
     document.querySelector("#student-popup").classList.remove("hidden");
     document.querySelector("#popup-name").textContent = student.firstname + " " + student.middlename + " " + student.lastname;
+
+    if (student.regStudent) {
+      document.querySelector("#popup-status").textContent = "Regular Student";
+    } else {
+      document.querySelector("#popup-status").textContent = "Expelled Student";
+    }
+
     document.querySelector("#popup-house").textContent = student.house;
+
+
     document.querySelector("#popup-blood").textContent = student.blood;
-    document.querySelector("#popup-status").textContent = student.status;
+    
     if (student.lastname.includes("-")) {
       let urlImage;
       let imglastName = student.lastname.substring(student.lastname.indexOf("-") + 1);
@@ -247,6 +285,33 @@ function displayStudent(student) {
     }
 
     document.querySelector("#popup-close").addEventListener("click", closePU);
+
+
+    // FOR EXPELLED STUDENT
+    document.querySelector("#popup-expell").addEventListener("click", expellStudent);
+
+    buildList();
+
+    function expellStudent () {
+      expelledStudents.push(student);
+      const index = filterStudents.indexOf(student);
+      regStudents = filterStudents.splice(index, 1);
+      regStudents = filterStudents
+  
+      //add to the expelled array
+      //take out from filterstudents array
+      //change status on object
+      student.regStudent = false;
+      document
+        .querySelector("#popup-expell")
+        .removeEventListener("click", expellStudent);
+      document.querySelector("#popup-status").textContent = "Expelled Student";
+  
+      console.log(student.firstname + " is expelled");
+      buildList();
+
+    }
+  }
 
     //     <div id="popup-header">
     //     <div id="popup-title">
@@ -265,9 +330,10 @@ function displayStudent(student) {
     //     <button id="popup-expell">Expell Student</button>
     //     <button id="popup-close">Close Window</button>
     // </div>
-  };
+
   document.querySelector("#list tbody").appendChild(clone);
 };
+
 
 function closePU() {
   document.querySelector("#student-popup").classList.add("hidden");
