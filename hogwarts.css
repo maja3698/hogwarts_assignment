@@ -116,7 +116,7 @@
 
 #student-popup {
   background-color: aliceblue;
-  position: absolute;
+  position: fixed;
   top: 5%;
   left: 25%;
   padding: 2rem;
