@@ -115,12 +115,18 @@ function setUp() {
   // TODO: Add event-listeners to filter and sort button
 
   //FILTERS EVENTS:
-  document.querySelectorAll("[data-action='filterB']").forEach((button) => button.addEventListener("click", selectFilterB));
+  document
+    .querySelectorAll("[data-action='filterB']")
+    .forEach((button) => button.addEventListener("click", selectFilterB));
 
-  document.querySelectorAll("[data-action='filterH']").forEach((button) => button.addEventListener("click", selectFilterH));
+  document
+    .querySelectorAll("[data-action='filterH']")
+    .forEach((button) => button.addEventListener("click", selectFilterH));
   document.querySelector(".filter-all").addEventListener("click", showAll);
 
-  document.querySelectorAll("[data-action='filterS']").forEach((button) => button.addEventListener("click", selectFilterS));
+  document
+    .querySelectorAll("[data-action='filterS']")
+    .forEach((button) => button.addEventListener("click", selectFilterS));
 
   // SORTING EVENTS:
   document
@@ -261,9 +267,13 @@ function selectFilterS(event) {
 function filterSList(filter) {
   filterStudents = allStudents;
   if (filter === "n-expelled") {
-    filterStudents = filterStudents.filter((student) => student.regStudent === true);
+    filterStudents = filterStudents.filter(
+      (student) => student.regStudent === true
+    );
   } else {
-    filterStudents = filterStudents.filter((student) => student.regStudent === false);
+    filterStudents = filterStudents.filter(
+      (student) => student.regStudent === false
+    );
   }
   console.log("status", filterStudents);
   buildList(filterStudents);
@@ -382,8 +392,12 @@ function displayStudent(student) {
   // EVENTLISTENERS FOR POPUP BOX
   clone.querySelector("[data-field='lname'").addEventListener("click", openPU);
   clone.querySelector("[data-field='fname'").addEventListener("click", openPU);
-  clone.querySelector("[data-field=pref]").addEventListener("click", prefClicked);
-  clone.querySelector("[data-field=squad]").addEventListener("click", squadClicked);
+  clone
+    .querySelector("[data-field=pref]")
+    .addEventListener("click", prefClicked);
+  clone
+    .querySelector("[data-field=squad]")
+    .addEventListener("click", squadClicked);
 
   function prefClicked() {
     console.log("pref is clicked");
@@ -410,7 +424,8 @@ function displayStudent(student) {
   function openPU() {
     console.log("show student info", student.lastname);
     document.querySelector("#student-popup").classList.remove("hidden");
-    document.querySelector("#popup-name").textContent = student.firstname + " " + student.middlename + " " + student.lastname;
+    document.querySelector("#popup-name").textContent =
+      student.firstname + " " + student.middlename + " " + student.lastname;
 
     if (student.regStudent) {
       document.querySelector("#popup-status").textContent = "Regular Student";
@@ -455,7 +470,9 @@ function displayStudent(student) {
     document.querySelector("#popup-close").addEventListener("click", closePU);
 
     // FOR EXPELLED STUDENT
-    document.querySelector("#popup-expell").addEventListener("click", expellStudent);
+    document
+      .querySelector("#popup-expell")
+      .addEventListener("click", expellStudent);
 
     buildList();
 
@@ -468,7 +485,9 @@ function displayStudent(student) {
       //take out from filterstudents array
       //change status on object
       student.regStudent = false;
-      document.querySelector("#popup-expell").removeEventListener("click", expellStudent);
+      document
+        .querySelector("#popup-expell")
+        .removeEventListener("click", expellStudent);
       document.querySelector("#popup-status").textContent = "Expelled Student";
 
       console.log(student.firstname + " is expelled");
