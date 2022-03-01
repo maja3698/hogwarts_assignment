@@ -131,6 +131,9 @@ function setUp() {
     document
     .querySelector("[data-action='filterP']").addEventListener("click", selectFilterP);
 
+    document
+    .querySelector("[data-action='filterI']").addEventListener("click", selectFilterI);
+
 
   // SORTING EVENTS:
   document
@@ -273,6 +276,27 @@ function selectFilterP (event) {
   console.log(`user select, ${filter}`);
   filterPList(filter);
 
+}
+
+function selectFilterI(event) {
+  const filter = event.target.dataset.filter;
+  console.log(`user select, ${filter}`);
+  filterIList(filter);
+}
+
+function filterIList(filter) {
+  filterStudents = allStudents;
+  if (filter === "squad") {
+    filterStudents = filterStudents.filter(
+      (student) => student.squad === true
+    );
+  } else {
+    filterStudents = filterStudents.filter(
+      (student) => student.squad === false
+    );
+  }
+  console.log("status", filterStudents);
+  buildList(filterStudents);
 }
 
 function filterPList(filter) {
@@ -460,6 +484,14 @@ function displayStudent(student) {
       // document.querySelector("#popup-status").classList.add("red");
       document.querySelector("#popup-expell").classList.add("hidden");
     }
+
+    if (student.squad) {
+      // Member of the Inquisitory Squad
+      document.querySelector("#popup-sq").textContent = "Member of the Inquisitory Squad";
+    } else {
+      document.querySelector("#popup-sq").textContent = "Not Member of the Inquisitory Squad";
+    }
+
 
     //FOR HOUSE IMG
 
