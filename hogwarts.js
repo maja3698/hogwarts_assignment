@@ -474,7 +474,7 @@ function displayStudent(student) {
       console.log(student.firstname + " is expelled");
       buildList();
     }
-  }
+  
 
   //     <div id="popup-header">
   //     <div id="popup-title">
@@ -496,6 +496,7 @@ function displayStudent(student) {
 
   }
   document.querySelector("#list tbody").appendChild(clone);
+}
 
 
 function closePU() {
