@@ -10,12 +10,15 @@
 </head>
 
 <body>
-  <h1>HOGWARTS STUDENT LIST</h1>
+  <h1>Hogwarts School of
+    <br>
+    Witchcraft and Wizardry </h1>
   <p>
     <input type="text" placeholder="Search.." name="search" />
     <button type="search">search</button>
     <br />
     <br />
+
     Filter:
     <button class="filter-expelled" data-action="filterS" data-filter="expelled">Expelled Students</button>
     <button class="filter-n-expelled" data-action="filterS" data-filter="n-expelled">Non-Expelled Students</button>
@@ -28,6 +31,7 @@
     <button class="filter-all" data-action="filter" data-filter="*">All</button>
     <br />
     <br />
+
     Filter by House:
     <button id="grif-btn" data-action="filterH" data-filter="Gryffindor">Gryffindor</button>
     <button id="slyt-btn" data-action="filterH" data-filter="Slytherin">Slytherin</button>
@@ -67,7 +71,8 @@
       <td data-field="pref"><img src="/house-flags/prefects.svg" alt="inquisitory squad badge" class="pref-badge"
           height="22" width="22"></td>
       <td data-field="status">Status</td>
-      <td data-field="squad" class="i-badge"> 🧶 </td>
+      <td data-field="squad"><img src="/house-flags/inquisitorial.svg" alt="inquisitory squad badge" class="i-badge"
+          height="22" width="22"></td>
     </tr>
 
     <!-- <td data-field="squad"><img src="/assets/i-squad.png" alt="inquisitory squad badge"
@@ -87,12 +92,12 @@
           <h2 id="popup-name">Harry Potter</h2>
           <h3 id="popup-house">House <span id="stud-house">Griffindor</span></h3>
         </div>
-        
+
       </div>
 
       <div id="houseLogo">
         <img src="" alt="house-logo" id="house-logo" height="50" width="50">
-    </div>
+      </div>
 
       <p id="popup-pref">Prefect</p>
       <p id="popup-blood">Blood status</p>
