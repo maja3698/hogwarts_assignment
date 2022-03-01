@@ -1,14 +1,72 @@
 "use strict";
 
-const pureBloodFamilies = ["Boot", "Cornfoot", "Abbott", "Avery", "Black", "Blishwick", "Brown", "Bulstrode", "Burke", "Carrow",
+const pureBloodFamilies = [
+  "Boot",
+  "Cornfoot",
+  "Abbott",
+  "Avery",
+  "Black",
+  "Blishwick",
+  "Brown",
+  "Bulstrode",
+  "Burke",
+  "Carrow",
 
-  "Crabbe", "Crouch", "Fawley", "Flint", "Gamp", "Gaunt", "Goyle", "Greengrass", "Kama", "Lestrange", "Longbottom", "MacDougal", "Macmillan",
+  "Crabbe",
+  "Crouch",
+  "Fawley",
+  "Flint",
+  "Gamp",
+  "Gaunt",
+  "Goyle",
+  "Greengrass",
+  "Kama",
+  "Lestrange",
+  "Longbottom",
+  "MacDougal",
+  "Macmillan",
 
-  "Malfoy","Max", "Moody", "Nott", "Ollivander", "Parkinson", "Peverell", "Potter", "Prewett", "Prince", "Rosier", "Rowle", "Sayre", "Selwyn",
+  "Malfoy",
+  "Max",
+  "Moody",
+  "Nott",
+  "Ollivander",
+  "Parkinson",
+  "Peverell",
+  "Potter",
+  "Prewett",
+  "Prince",
+  "Rosier",
+  "Rowle",
+  "Sayre",
+  "Selwyn",
 
-  "Shacklebolt", "Shafiq", "Slughorn", "Slytherin", "Travers", "Tremblay", "Tripe", "Urquart", "Weasley", "Yaxley", "Bletchley", "Dumbledore",
+  "Shacklebolt",
+  "Shafiq",
+  "Slughorn",
+  "Slytherin",
+  "Travers",
+  "Tremblay",
+  "Tripe",
+  "Urquart",
+  "Weasley",
+  "Yaxley",
+  "Bletchley",
+  "Dumbledore",
 
-  "Fudge", "Gibbon", "Gryffindor", "Higgs", "Lowe", "Macnair", "Montague", "Mulciber", "Orpington", "Pyrites", "Perks", "Runcorn", "Wilkes",
+  "Fudge",
+  "Gibbon",
+  "Gryffindor",
+  "Higgs",
+  "Lowe",
+  "Macnair",
+  "Montague",
+  "Mulciber",
+  "Orpington",
+  "Pyrites",
+  "Perks",
+  "Runcorn",
+  "Wilkes",
 
   "Zabini",
 ];
@@ -20,7 +78,7 @@ window.addEventListener("DOMContentLoaded", setUp);
 let allStudents = [];
 let filterStudents;
 let expelledStudents = [];
-let regStudents = [];
+let regStudents;
 
 // let studentBlood = student.blood;
 // The prototype for all animals:
@@ -44,12 +102,11 @@ function setUp() {
 
   //FILTERS EVENTS:
   document.querySelectorAll("[data-action='filterB']").forEach((button) => button.addEventListener("click", selectFilterB));
-  loadJSON();
+
   document.querySelectorAll("[data-action='filterH']").forEach((button) => button.addEventListener("click", selectFilterH));
   document.querySelector(".filter-all").addEventListener("click", showAll);
 
-  student.regStudent = true;
-
+  document.querySelectorAll("[data-action='filterS']").forEach((button) => button.addEventListener("click", selectFilterS));
 
   // SORTING EVENTS:
   document
@@ -57,6 +114,8 @@ function setUp() {
     .querySelectorAll("[data-action='sort']")
 
     .forEach((button) => button.addEventListener("click", selectSort));
+
+  loadJSON();
 }
 
 async function loadJSON() {
@@ -102,7 +161,7 @@ function prepareObject(jsonObject) {
     student.middlename = "";
   }
 
- // BOOLEAN FOR BLOOD STATUS
+  // BOOLEAN FOR BLOOD STATUS
 
   if (pureBloodFamilies.includes(student.lastname)) {
     student.blood = "Pure Blood";
@@ -115,20 +174,16 @@ function prepareObject(jsonObject) {
 
   // BOOLEAN FOR EXPELLED STUDENTS
 
+  student.regStudent = true;
 
-
-
-  if (student.regStudent) {
-    student.status = "Regular Student";
-  } else {
-    student.status = "Expelled Student";
-  }
+  // if (student.regStudent) {
+  //   student.status = "Regular Student";
+  // } else {
+  //   student.status = "Expelled Student";
+  // }
 
   return student;
-
-   
 }
-
 
 // SORTING FUNCTIONS AND DISPLAY
 
@@ -149,7 +204,7 @@ function sortList(sortParam) {
     }
   }
 
-  displayList(filterStudents);
+  buildList(filterStudents);
 }
 
 //FILTERING FUNCTIONS AND DISPLAY
@@ -168,6 +223,23 @@ function selectFilterH(event) {
   filterHList(filter);
 }
 
+function selectFilterS(event) {
+  const filter = event.target.dataset.filter;
+  console.log(`user select, ${filter}`);
+  filterSList(filter);
+}
+
+function filterSList(filter) {
+  filterStudents = allStudents;
+  if (filter === "n-expelled") {
+    filterStudents = filterStudents.filter((student) => student.regStudent === true);
+  } else {
+    filterStudents = filterStudents.filter((student) => student.regStudent === false);
+  }
+  console.log("status", filterStudents);
+  buildList(filterStudents);
+}
+
 function filterHList(house) {
   filterStudents = allStudents;
   if (house === "Gryffindor") {
@@ -183,7 +255,7 @@ function filterHList(house) {
   //   let purestudents = filterStudents.filter(isPure);
 
   //   let muggleStudents = filterStudents.filter(isMuggle);
-  displayList(filterStudents);
+  buildList(filterStudents);
 }
 
 function filterBList(blood) {
@@ -208,26 +280,23 @@ function filterBList(blood) {
 
 function showAll() {
   filterStudents = allStudents;
-  displayList(allStudents);
+  buildList(allStudents);
 }
 
 //build list
-function buildList(students) {
+function buildList() {
   console.log("buildList");
-  const regStudents = filterStudents;
-  console.log("allStudents-End", allStudents);
-  console.log("regStudents-End", regStudents);
-  console.log("ExpelledStudents-End", expelledStudents);
-  displayList(regStudents);
+
+  displayList(filterStudents);
 }
 
 function displayList(students) {
   document.querySelector("#list tbody").innerHTML = "";
+  console.log("displayList");
 
   // build a new list
   students.forEach(displayStudent);
 }
-
 
 //DISPLAY EACH STUDENT AND PRINT
 ///
@@ -246,17 +315,52 @@ function displayStudent(student) {
   clone.querySelector("[data-field=house]").textContent = student.house;
   clone.querySelector("[data-field=blood-status]").textContent = student.blood;
 
-
   if (student.regStudent) {
     clone.querySelector("[data-field=status]").textContent = "Regular Student";
   } else {
     clone.querySelector("[data-field=status]").textContent = "Expelled Student";
+    clone.querySelector("#student-line").classList.add("grey");
+  }
+
+  if (student.prefect) {
+    clone.querySelector(".pref-badge").classList.remove("grey");
+  } else {
+    clone.querySelector(".pref-badge").classList.add("grey");
+  }
+
+  if (student.squad) {
+    clone.querySelector(".i-badge").classList.remove("grey");
+  } else {
+    clone.querySelector(".i-badge").classList.add("grey");
   }
 
   // EVENTLISTENERS FOR POPUP BOX
   clone.querySelector("[data-field='lname'").addEventListener("click", openPU);
   clone.querySelector("[data-field='fname'").addEventListener("click", openPU);
+  clone.querySelector("[data-field=pref]").addEventListener("click", prefClicked);
+  clone.querySelector("[data-field=squad]").addEventListener("click", squadClicked);
 
+  function prefClicked() {
+    console.log("pref is clicked");
+    if (student.prefect) {
+      student.prefect = false;
+    } else {
+      student.prefect = true;
+    }
+    console.log("pref:", student.prefect);
+    buildList();
+  }
+
+  function squadClicked() {
+    console.log("squad is clicked");
+    if (student.squad) {
+      student.squad = false;
+    } else {
+      student.squad = true;
+    }
+    console.log("squad:", student.squad);
+    buildList();
+  }
 
   function openPU() {
     console.log("show student info", student.lastname);
@@ -267,13 +371,21 @@ function displayStudent(student) {
       document.querySelector("#popup-status").textContent = "Regular Student";
     } else {
       document.querySelector("#popup-status").textContent = "Expelled Student";
+      // document.querySelector("#popup-status").classList.add("red");
+      document.querySelector("#popup-expell").classList.add("hidden");
     }
+
+    //FOR HOUSE IMG
+
+    // document.querySelector(
+    //   "#house-flag"
+    // ).src = `/assets/${student.house}-flag.svg`;
+    // document.querySelector("#house-logo").src = `/assets/${student.house}.png`;
 
     document.querySelector("#popup-house").textContent = student.house;
 
-
     document.querySelector("#popup-blood").textContent = student.blood;
-    
+
     if (student.lastname.includes("-")) {
       let urlImage;
       let imglastName = student.lastname.substring(student.lastname.indexOf("-") + 1);
@@ -286,54 +398,48 @@ function displayStudent(student) {
 
     document.querySelector("#popup-close").addEventListener("click", closePU);
 
-
     // FOR EXPELLED STUDENT
     document.querySelector("#popup-expell").addEventListener("click", expellStudent);
 
     buildList();
 
-    function expellStudent () {
+    function expellStudent() {
       expelledStudents.push(student);
-      const index = filterStudents.indexOf(student);
-      regStudents = filterStudents.splice(index, 1);
-      regStudents = filterStudents
-  
+      // const index = filterStudents.indexOf(student);
+      // regStudents = filterStudents.splice(index, 1);
+
       //add to the expelled array
       //take out from filterstudents array
       //change status on object
       student.regStudent = false;
-      document
-        .querySelector("#popup-expell")
-        .removeEventListener("click", expellStudent);
+      document.querySelector("#popup-expell").removeEventListener("click", expellStudent);
       document.querySelector("#popup-status").textContent = "Expelled Student";
-  
+
       console.log(student.firstname + " is expelled");
       buildList();
-
     }
   }
 
-    //     <div id="popup-header">
-    //     <div id="popup-title">
-    //         <h2 id="popup-name">Harry Potter</h2>
-    //         <h3 id="popup-house">House <span id="stud-house">Griffindor</span></h3>
-    //     </div>
-    //     <div id="popup-house-logo">G</div>
-    // </div>
-    // <p id="popup-pref">Prefect</p>
-    // <p id="popup-p-blood">Pure Blood</p>
-    // <p id="popup-h-blood">Half Blood</p>
-    // <p id="popup-muggle">Muggle</p>
-    // <p id="popup-sq"><span id="popup-squad">Not </span>Member of the Inquisitory Squad</p>
-    // <p id="popup-stud-st">Student Status: <span id="poup-status">Regular</span></p>
-    // <div id="popup-btns">
-    //     <button id="popup-expell">Expell Student</button>
-    //     <button id="popup-close">Close Window</button>
-    // </div>
+  //     <div id="popup-header">
+  //     <div id="popup-title">
+  //         <h2 id="popup-name">Harry Potter</h2>
+  //         <h3 id="popup-house">House <span id="stud-house">Griffindor</span></h3>
+  //     </div>
+  //     <div id="popup-house-logo">G</div>
+  // </div>
+  // <p id="popup-pref">Prefect</p>
+  // <p id="popup-p-blood">Pure Blood</p>
+  // <p id="popup-h-blood">Half Blood</p>
+  // <p id="popup-muggle">Muggle</p>
+  // <p id="popup-sq"><span id="popup-squad">Not </span>Member of the Inquisitory Squad</p>
+  // <p id="popup-stud-st">Student Status: <span id="poup-status">Regular</span></p>
+  // <div id="popup-btns">
+  //     <button id="popup-expell">Expell Student</button>
+  //     <button id="popup-close">Close Window</button>
+  // </div>
 
   document.querySelector("#list tbody").appendChild(clone);
-};
-
+}
 
 function closePU() {
   document.querySelector("#student-popup").classList.add("hidden");
