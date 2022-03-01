@@ -128,6 +128,10 @@ function setUp() {
     .querySelectorAll("[data-action='filterS']")
     .forEach((button) => button.addEventListener("click", selectFilterS));
 
+    document
+    .querySelector("[data-action='filterP']").addEventListener("click", selectFilterP);
+
+
   // SORTING EVENTS:
   document
 
@@ -262,6 +266,28 @@ function selectFilterS(event) {
   const filter = event.target.dataset.filter;
   console.log(`user select, ${filter}`);
   filterSList(filter);
+}
+
+function selectFilterP (event) {
+  const filter = event.target.dataset.filter;
+  console.log(`user select, ${filter}`);
+  filterPList(filter);
+
+}
+
+function filterPList(filter) {
+  filterStudents = allStudents;
+  if (filter === "pref") {
+    filterStudents = filterStudents.filter(
+      (student) => student.prefect === true
+    );
+  } else {
+    filterStudents = filterStudents.filter(
+      (student) => student.prefect === false
+    );
+  }
+  console.log("status", filterStudents);
+  buildList(filterStudents);
 }
 
 function filterSList(filter) {
@@ -443,6 +469,12 @@ function displayStudent(student) {
     // document.querySelector("#house-logo").src = `/assets/${student.house}.png`;
 
   
+    document.querySelector(
+      "#house-logo"
+    ).src = `/house-flags/${student.house}.svg`;
+    
+
+
     document.querySelector("#popup-house").textContent = student.house;
 
     document.querySelector("#popup-blood").textContent = student.blood;
