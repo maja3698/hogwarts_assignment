@@ -71,7 +71,21 @@ const pureBloodFamilies = [
   "Zabini",
 ];
 
-const halfBloodFamilies = ["Abbott", "Bones", "Jones", "Hopkins", "Finnigan", "Potter", "Brocklehurst", "Goldstein", "Corner", "Bulstrode", "Patil", "Li", "Thomas"];
+const halfBloodFamilies = [
+  "Abbott",
+  "Bones",
+  "Jones",
+  "Hopkins",
+  "Finnigan",
+  "Potter",
+  "Brocklehurst",
+  "Goldstein",
+  "Corner",
+  "Bulstrode",
+  "Patil",
+  "Li",
+  "Thomas",
+];
 
 window.addEventListener("DOMContentLoaded", setUp);
 
@@ -119,7 +133,9 @@ function setUp() {
 }
 
 async function loadJSON() {
-  const response = await fetch("https://petlatkea.dk/2021/hogwarts/students.json");
+  const response = await fetch(
+    "https://petlatkea.dk/2021/hogwarts/students.json"
+  );
   const jsonData = await response.json();
 
   // when loaded, prepare data objects
@@ -141,7 +157,10 @@ function prepareObject(jsonObject) {
   const student = Object.create(Student);
   let cleanFullname = jsonObject.fullname.trim();
   let firstName = cleanFullname.substring(0, cleanFullname.indexOf(" "));
-  let middleName = cleanFullname.substring(cleanFullname.indexOf(" "), cleanFullname.lastIndexOf(" "));
+  let middleName = cleanFullname.substring(
+    cleanFullname.indexOf(" "),
+    cleanFullname.lastIndexOf(" ")
+  );
   let lastName = cleanFullname.substring(cleanFullname.lastIndexOf(" "));
 
   let cleanHouse = jsonObject.house.trim();
@@ -149,12 +168,20 @@ function prepareObject(jsonObject) {
   let cleanName = firstName.trim();
   let cleanMName = middleName.trim();
 
-  student.lastname = `${cleanLName.substring(0, 1).toUpperCase()}${cleanLName.substring(1, cleanLName.length).toLowerCase()}`;
-  student.middlename = `${cleanMName.substring(0, 1).toUpperCase()}${cleanMName.substring(1, cleanMName.length).toLowerCase()}`;
+  student.lastname = `${cleanLName.substring(0, 1).toUpperCase()}${cleanLName
+    .substring(1, cleanLName.length)
+    .toLowerCase()}`;
+  student.middlename = `${cleanMName.substring(0, 1).toUpperCase()}${cleanMName
+    .substring(1, cleanMName.length)
+    .toLowerCase()}`;
   if (firstName) {
-    student.firstname = `${cleanName.substring(0, 1).toUpperCase()}${cleanName.substring(1, cleanName.length).toLowerCase()}`;
+    student.firstname = `${cleanName.substring(0, 1).toUpperCase()}${cleanName
+      .substring(1, cleanName.length)
+      .toLowerCase()}`;
   } else {
-    student.firstname = `${cleanMName.substring(0, 1).toUpperCase()}${cleanMName.substring(1, cleanMName.length).toLowerCase()}`;
+    student.firstname = `${cleanMName.substring(0, 1).toUpperCase()}${cleanMName
+      .substring(1, cleanMName.length)
+      .toLowerCase()}`;
     student.middlename = "";
   }
   if (cleanMName.startsWith('"')) {
@@ -170,7 +197,9 @@ function prepareObject(jsonObject) {
   } else {
     student.blood = "Muggle";
   }
-  student.house = `${cleanHouse.substring(0, 1).toUpperCase()}${cleanHouse.substring(1, cleanHouse.length).toLowerCase()}`;
+  student.house = `${cleanHouse.substring(0, 1).toUpperCase()}${cleanHouse
+    .substring(1, cleanHouse.length)
+    .toLowerCase()}`;
 
   // BOOLEAN FOR EXPELLED STUDENTS
 
@@ -243,13 +272,21 @@ function filterSList(filter) {
 function filterHList(house) {
   filterStudents = allStudents;
   if (house === "Gryffindor") {
-    filterStudents = filterStudents.filter((student) => student.house === "Gryffindor");
+    filterStudents = filterStudents.filter(
+      (student) => student.house === "Gryffindor"
+    );
   } else if (house === "Hufflepuff") {
-    filterStudents = filterStudents.filter((student) => student.house === "Hufflepuff");
+    filterStudents = filterStudents.filter(
+      (student) => student.house === "Hufflepuff"
+    );
   } else if (house === "Ravenclaw") {
-    filterStudents = filterStudents.filter((student) => student.house === "Ravenclaw");
+    filterStudents = filterStudents.filter(
+      (student) => student.house === "Ravenclaw"
+    );
   } else if (house === "Slytherin") {
-    filterStudents = filterStudents.filter((student) => student.house === "Slytherin");
+    filterStudents = filterStudents.filter(
+      (student) => student.house === "Slytherin"
+    );
   }
   console.log(filterStudents);
   //   let purestudents = filterStudents.filter(isPure);
@@ -262,11 +299,17 @@ function filterBList(blood) {
   filterStudents = allStudents;
 
   if (blood === "Pure Blood") {
-    filterStudents = filterStudents.filter((student) => student.blood === "Pure Blood");
+    filterStudents = filterStudents.filter(
+      (student) => student.blood === "Pure Blood"
+    );
   } else if (blood === "Half-Blood") {
-    filterStudents = filterStudents.filter((student) => student.blood === "Half-Blood");
+    filterStudents = filterStudents.filter(
+      (student) => student.blood === "Half-Blood"
+    );
   } else {
-    filterStudents = filterStudents.filter((student) => student.blood === "Muggle");
+    filterStudents = filterStudents.filter(
+      (student) => student.blood === "Muggle"
+    );
   }
 
   console.log(filterStudents);
@@ -302,7 +345,9 @@ function displayList(students) {
 ///
 ////
 function displayStudent(student) {
-  const clone = document.querySelector("template#student").content.cloneNode(true);
+  const clone = document
+    .querySelector("template#student")
+    .content.cloneNode(true);
 
   // set clone data
   clone.querySelector("[data-field=fname]").textContent = student.firstname;
@@ -382,19 +427,30 @@ function displayStudent(student) {
     // ).src = `/assets/${student.house}-flag.svg`;
     // document.querySelector("#house-logo").src = `/assets/${student.house}.png`;
 
+  
     document.querySelector("#popup-house").textContent = student.house;
 
     document.querySelector("#popup-blood").textContent = student.blood;
 
     if (student.lastname.includes("-")) {
       let urlImage;
-      let imglastName = student.lastname.substring(student.lastname.indexOf("-") + 1);
-      urlImage = imglastName + "_" + student.firstname.charAt(0).toLowerCase() + ".png";
+      let imglastName = student.lastname.substring(
+        student.lastname.indexOf("-") + 1
+      );
+      urlImage =
+        imglastName + "_" + student.firstname.charAt(0).toLowerCase() + ".png";
       console.log(urlImage);
       document.querySelector("#student-pic").src = `/students-pics/${urlImage}`;
     } else {
-      document.querySelector("#student-pic").src = `/students-pics/${student.lastname}_${student.firstname.charAt(0)}.png`;
+      document.querySelector("#student-pic").src = `/students-pics/${
+        student.lastname
+      }_${student.firstname.charAt(0)}.png`;
     }
+
+    document.querySelector("#house-logo").src = `/house-flags/${student.house}.svg`;
+
+
+    // document.querySelector("#house-logo").src = `/icons/${student.house}.png`;
 
     document.querySelector("#popup-close").addEventListener("click", closePU);
 
@@ -438,8 +494,9 @@ function displayStudent(student) {
   //     <button id="popup-close">Close Window</button>
   // </div>
 
+  }
   document.querySelector("#list tbody").appendChild(clone);
-}
+
 
 function closePU() {
   document.querySelector("#student-popup").classList.add("hidden");
