@@ -87,6 +87,8 @@ const halfBloodFamilies = [
   "Thomas",
 ];
 
+let systemHacked = false;
+
 window.addEventListener("DOMContentLoaded", setUp);
 
 let allStudents = [];
@@ -128,12 +130,13 @@ function setUp() {
     .querySelectorAll("[data-action='filterS']")
     .forEach((button) => button.addEventListener("click", selectFilterS));
 
-    document
-    .querySelector("[data-action='filterP']").addEventListener("click", selectFilterP);
+  document
+    .querySelector("[data-action='filterP']")
+    .addEventListener("click", selectFilterP);
 
-    document
-    .querySelector("[data-action='filterI']").addEventListener("click", selectFilterI);
-
+  document
+    .querySelector("[data-action='filterI']")
+    .addEventListener("click", selectFilterI);
 
   // SORTING EVENTS:
   document
@@ -271,11 +274,10 @@ function selectFilterS(event) {
   filterSList(filter);
 }
 
-function selectFilterP (event) {
+function selectFilterP(event) {
   const filter = event.target.dataset.filter;
   console.log(`user select, ${filter}`);
   filterPList(filter);
-
 }
 
 function selectFilterI(event) {
@@ -287,9 +289,7 @@ function selectFilterI(event) {
 function filterIList(filter) {
   filterStudents = allStudents;
   if (filter === "squad") {
-    filterStudents = filterStudents.filter(
-      (student) => student.squad === true
-    );
+    filterStudents = filterStudents.filter((student) => student.squad === true);
   } else {
     filterStudents = filterStudents.filter(
       (student) => student.squad === false
@@ -487,11 +487,12 @@ function displayStudent(student) {
 
     if (student.squad) {
       // Member of the Inquisitory Squad
-      document.querySelector("#popup-sq").textContent = "Member of the Inquisitory Squad";
+      document.querySelector("#popup-sq").textContent =
+        "Member of the Inquisitory Squad";
     } else {
-      document.querySelector("#popup-sq").textContent = "Not Member of the Inquisitory Squad";
+      document.querySelector("#popup-sq").textContent =
+        "Not Member of the Inquisitory Squad";
     }
-
 
     //FOR HOUSE IMG
 
@@ -500,12 +501,9 @@ function displayStudent(student) {
     // ).src = `/assets/${student.house}-flag.svg`;
     // document.querySelector("#house-logo").src = `/assets/${student.house}.png`;
 
-  
     document.querySelector(
       "#house-logo"
     ).src = `/house-flags/${student.house}.svg`;
-    
-
 
     document.querySelector("#popup-house").textContent = student.house;
 
@@ -526,8 +524,9 @@ function displayStudent(student) {
       }_${student.firstname.charAt(0)}.png`;
     }
 
-    document.querySelector("#house-logo").src = `/house-flags/${student.house}.svg`;
-
+    document.querySelector(
+      "#house-logo"
+    ).src = `/house-flags/${student.house}.svg`;
 
     // document.querySelector("#house-logo").src = `/icons/${student.house}.png`;
 
@@ -557,30 +556,27 @@ function displayStudent(student) {
       console.log(student.firstname + " is expelled");
       buildList();
     }
-  
 
-  //     <div id="popup-header">
-  //     <div id="popup-title">
-  //         <h2 id="popup-name">Harry Potter</h2>
-  //         <h3 id="popup-house">House <span id="stud-house">Griffindor</span></h3>
-  //     </div>
-  //     <div id="popup-house-logo">G</div>
-  // </div>
-  // <p id="popup-pref">Prefect</p>
-  // <p id="popup-p-blood">Pure Blood</p>
-  // <p id="popup-h-blood">Half Blood</p>
-  // <p id="popup-muggle">Muggle</p>
-  // <p id="popup-sq"><span id="popup-squad">Not </span>Member of the Inquisitory Squad</p>
-  // <p id="popup-stud-st">Student Status: <span id="poup-status">Regular</span></p>
-  // <div id="popup-btns">
-  //     <button id="popup-expell">Expell Student</button>
-  //     <button id="popup-close">Close Window</button>
-  // </div>
-
+    //     <div id="popup-header">
+    //     <div id="popup-title">
+    //         <h2 id="popup-name">Harry Potter</h2>
+    //         <h3 id="popup-house">House <span id="stud-house">Griffindor</span></h3>
+    //     </div>
+    //     <div id="popup-house-logo">G</div>
+    // </div>
+    // <p id="popup-pref">Prefect</p>
+    // <p id="popup-p-blood">Pure Blood</p>
+    // <p id="popup-h-blood">Half Blood</p>
+    // <p id="popup-muggle">Muggle</p>
+    // <p id="popup-sq"><span id="popup-squad">Not </span>Member of the Inquisitory Squad</p>
+    // <p id="popup-stud-st">Student Status: <span id="poup-status">Regular</span></p>
+    // <div id="popup-btns">
+    //     <button id="popup-expell">Expell Student</button>
+    //     <button id="popup-close">Close Window</button>
+    // </div>
   }
   document.querySelector("#list tbody").appendChild(clone);
 }
-
 
 function closePU() {
   document.querySelector("#student-popup").classList.add("hidden");
