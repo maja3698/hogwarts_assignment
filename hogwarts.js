@@ -75,7 +75,7 @@ const me = {
   firstname: "Melania",
   lastname: "Irimia",
   middlename: "Gabriela",
-  image: "/students-pics/eu.jpeg",
+  image: "/students-pics/irimia_m.png",
   house: "Gryffindor",
   status: false,
   blood: "Pure Blood",
@@ -101,6 +101,7 @@ const halfBloodFamilies = [
   "Li",
   "Thomas",
 ];
+let systemHacked = false;
 
 window.addEventListener("DOMContentLoaded", setUp);
 
@@ -108,6 +109,7 @@ let allStudents = [];
 let filterStudents;
 let expelledStudents = [];
 let regStudents;
+let squadStudents = [];
 
 // let studentBlood = student.blood;
 // The prototype for all animals:
@@ -476,12 +478,32 @@ function displayStudent(student) {
 
   function squadClicked() {
     console.log("squad is clicked");
-    if (student.squad) {
-      student.squad = false;
+    if (systemHacked === false) {
+      if (student.squad) {
+        student.squad = false;
+      } else {
+        student.squad = true;
+      }
     } else {
-      student.squad = true;
+      squadHacked();
     }
     console.log("squad:", student.squad);
+    buildList();
+  }
+
+  function squadHacked() {
+    console.log("kali");
+    squadStudents.push(student);
+    student.squad = true;
+    const myTimeout = setTimeout(hackingSquad, 5000);
+    buildList();
+  }
+
+  function hackingSquad() {
+    student.squad = false;
+    const index = squadStudents.indexOf(student);
+    squadStudents.splice(index, 1);
+
     buildList();
   }
 
@@ -557,12 +579,6 @@ function displayStudent(student) {
       if (student.cantbeExpelled === true) {
       } else {
         expelledStudents.push(student);
-        // const index = filterStudents.indexOf(student);
-        // regStudents = filterStudents.splice(index, 1);
-
-        //add to the expelled array
-        //take out from filterstudents array
-        //change status on object
 
         student.regStudent = false;
         document
@@ -576,24 +592,6 @@ function displayStudent(student) {
 
       buildList();
     }
-
-    //     <div id="popup-header">
-    //     <div id="popup-title">
-    //         <h2 id="popup-name">Harry Potter</h2>
-    //         <h3 id="popup-house">House <span id="stud-house">Griffindor</span></h3>
-    //     </div>
-    //     <div id="popup-house-logo">G</div>
-    // </div>
-    // <p id="popup-pref">Prefect</p>
-    // <p id="popup-p-blood">Pure Blood</p>
-    // <p id="popup-h-blood">Half Blood</p>
-    // <p id="popup-muggle">Muggle</p>
-    // <p id="popup-sq"><span id="popup-squad">Not </span>Member of the Inquisitory Squad</p>
-    // <p id="popup-stud-st">Student Status: <span id="poup-status">Regular</span></p>
-    // <div id="popup-btns">
-    //     <button id="popup-expell">Expell Student</button>
-    //     <button id="popup-close">Close Window</button>
-    // </div>
   }
   document.querySelector("#list tbody").appendChild(clone);
 }
@@ -609,6 +607,7 @@ let clicked = true;
 console.log(clicked);
 document.querySelector(".hack").addEventListener("click", hackTheSystem);
 function hackTheSystem() {
+  systemHacked = true;
   allStudents.forEach(randomBlood);
   allStudents.push(me);
   buildList();
