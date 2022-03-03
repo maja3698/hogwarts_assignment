@@ -103,7 +103,6 @@ const halfBloodFamilies = [
 ];
 let systemHacked = false;
 
-let systemHacked = false;
 
 window.addEventListener("DOMContentLoaded", setUp);
 
