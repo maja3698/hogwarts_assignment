@@ -154,6 +154,7 @@ function setUp() {
   document
     .querySelector("[data-action='filterI']")
     .addEventListener("click", selectFilterI);
+  document.querySelector(".searchbar").addEventListener("input", searchBar);
 
   // SORTING EVENTS:
   document
