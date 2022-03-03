@@ -509,41 +509,68 @@ function displayStudent(student) {
   function squadClicked() {
     document.querySelector("#squad-btn").addEventListener("click", closeSquad);
     console.log("squad is clicked");
-    if (student.blood === "Pure Blood" || student.house === "Slytherin") {
-      if (student.squad === true) {
-        student.squad = false;
-
-        const index = squadStudents.indexOf(student);
-
-        squadStudents.splice(index, 1);
-      } else {
-        console.log("you cant be squad");
-        student.squad = true;
-
-        //     squadStudents.push(student);
-        console.log(squadStudents);
-        document.querySelector("#squad-popup").classList.remove("hidden");
-      }
-    }
 
     if (systemHacked === false) {
-      if (student.squad) {
-        student.squad = false;
+      if (student.regStudent === true) {
+        if (student.blood === "Pure Blood" || student.house === "Slytherin") {
+          if (student.squad === true) {
+            student.squad = false;
+
+            const index = squadStudents.indexOf(student);
+
+            squadStudents.splice(index, 1);
+          } else {
+            student.squad = true;
+            squadStudents.push(student);
+            console.log(squadStudents);
+          }
+        } else {
+          console.log("you cant be squad");
+          // student.squad = true;
+
+          //     squadStudents.push(student);
+          // console.log(squadStudents);
+          document.querySelector("#squad-popup").classList.remove("hidden");
+
+          document
+            .querySelector("#squad-btn")
+            .addEventListener("click", closePU);
+        }
       } else {
-        student.squad = true;
+        student.squad = false;
       }
     } else {
       squadHacked();
     }
+
+    //   if (student.squad) {
+    //     student.squad = false;
+    //   } else {
+    //     student.squad = true;
+    //   }
+    // } else {
+    //   squadHacked();
+    // }
 
     buildList();
   }
 
   function squadHacked() {
     console.log("kali");
-    squadStudents.push(student);
-    student.squad = true;
-    const myTimeout = setTimeout(hackingSquad, 5000);
+    if (student.blood === "Pure Blood" || student.house === "Slytherin") {
+      squadStudents.push(student);
+      student.squad = true;
+      setTimeout(hackingSquad, 5000);
+    } else {
+      console.log("you cant be squad");
+      // student.squad = true;
+
+      //     squadStudents.push(student);
+      // console.log(squadStudents);
+      document.querySelector("#squad-popup").classList.remove("hidden");
+
+      document.querySelector("#squad-btn").addEventListener("click", closePU);
+    }
     buildList();
   }
 
