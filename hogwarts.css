@@ -281,14 +281,29 @@ button:hover {
 }
 
 .searchbar {
-  /* margin: 3vw; */
-  width: 9vw;
-  height: 1vw;
-  border-radius: 5px;
+  margin-left: 2vw;
+  width: 10vw;
+  height: 2vw;
+  border-radius: 6px;
   font-size: 0.9vw;
 }
 
 #student-pic {
   width: 150px;
   height: auto;
+}
+
+#hackedsystem-popup {
+  background-color: #e2a226;
+  position: fixed;
+  border-radius: 10px;
+  top: 15%;
+  left: 25%;
+  padding: 17rem;
+}
+
+#hackedsystem-popup p {
+  font-family: Rye;
+  font-size: 1.5vw;
+  color: #4b2222;
 }

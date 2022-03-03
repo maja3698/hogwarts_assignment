@@ -63,15 +63,25 @@ function setUp() {
   // TODO: Add event-listeners to filter and sort button
 
   //FILTERS EVENTS:
-  document.querySelectorAll("[data-action='filterB']").forEach((button) => button.addEventListener("click", selectFilterB));
+  document
+    .querySelectorAll("[data-action='filterB']")
+    .forEach((button) => button.addEventListener("click", selectFilterB));
 
-  document.querySelectorAll("[data-action='filterH']").forEach((button) => button.addEventListener("click", selectFilterH));
+  document
+    .querySelectorAll("[data-action='filterH']")
+    .forEach((button) => button.addEventListener("click", selectFilterH));
 
-  document.querySelectorAll("[data-action='filterS']").forEach((button) => button.addEventListener("click", selectFilterS));
+  document
+    .querySelectorAll("[data-action='filterS']")
+    .forEach((button) => button.addEventListener("click", selectFilterS));
 
-  document.querySelector("[data-action='filterP']").addEventListener("click", selectFilterP);
+  document
+    .querySelector("[data-action='filterP']")
+    .addEventListener("click", selectFilterP);
 
-  document.querySelector("[data-action='filterI']").addEventListener("click", selectFilterI);
+  document
+    .querySelector("[data-action='filterI']")
+    .addEventListener("click", selectFilterI);
   document.querySelector(".searchbar").addEventListener("input", searchBar);
 
   document.querySelector(".filter-all").addEventListener("click", showAll);
@@ -86,6 +96,8 @@ function setUp() {
   document.querySelector(".searchbar").addEventListener("input", searchBar);
 
   document.querySelector(".hack").addEventListener("click", hackTheSystem);
+  document.querySelector(".hack").addEventListener("click", hackTheSystemPU);
+  // document.querySelector(".hack").addEventListener("click", openHackedPU);
 
   loadJSON();
 }
@@ -93,15 +105,23 @@ function setUp() {
 function searchBar(e) {
   const searchString = e.target.value.toLowerCase();
   const searchedStudents = allStudents.filter((student) => {
-    return student.firstname.toLowerCase().includes(searchString) || student.lastname.toLowerCase().includes(searchString) || student.house.toLowerCase().includes(searchString);
+    return (
+      student.firstname.toLowerCase().includes(searchString) ||
+      student.lastname.toLowerCase().includes(searchString) ||
+      student.house.toLowerCase().includes(searchString)
+    );
   });
   displayList(searchedStudents);
 }
 
 async function loadJSON() {
-  const response = await fetch("https://petlatkea.dk/2021/hogwarts/students.json");
+  const response = await fetch(
+    "https://petlatkea.dk/2021/hogwarts/students.json"
+  );
   const jsonData = await response.json();
-  const familiesData = await fetch("https://petlatkea.dk/2021/hogwarts/families.json");
+  const familiesData = await fetch(
+    "https://petlatkea.dk/2021/hogwarts/families.json"
+  );
   familiesArray = await familiesData.json();
 
   // when loaded, prepare data objects
@@ -123,7 +143,10 @@ function prepareObject(jsonObject) {
   const student = Object.create(Student);
   let cleanFullname = jsonObject.fullname.trim();
   let firstName = cleanFullname.substring(0, cleanFullname.indexOf(" "));
-  let middleName = cleanFullname.substring(cleanFullname.indexOf(" "), cleanFullname.lastIndexOf(" "));
+  let middleName = cleanFullname.substring(
+    cleanFullname.indexOf(" "),
+    cleanFullname.lastIndexOf(" ")
+  );
   let lastName = cleanFullname.substring(cleanFullname.lastIndexOf(" "));
 
   let cleanHouse = jsonObject.house.trim();
@@ -131,12 +154,20 @@ function prepareObject(jsonObject) {
   let cleanName = firstName.trim();
   let cleanMName = middleName.trim();
 
-  student.lastname = `${cleanLName.substring(0, 1).toUpperCase()}${cleanLName.substring(1, cleanLName.length).toLowerCase()}`;
-  student.middlename = `${cleanMName.substring(0, 1).toUpperCase()}${cleanMName.substring(1, cleanMName.length).toLowerCase()}`;
+  student.lastname = `${cleanLName.substring(0, 1).toUpperCase()}${cleanLName
+    .substring(1, cleanLName.length)
+    .toLowerCase()}`;
+  student.middlename = `${cleanMName.substring(0, 1).toUpperCase()}${cleanMName
+    .substring(1, cleanMName.length)
+    .toLowerCase()}`;
   if (firstName) {
-    student.firstname = `${cleanName.substring(0, 1).toUpperCase()}${cleanName.substring(1, cleanName.length).toLowerCase()}`;
+    student.firstname = `${cleanName.substring(0, 1).toUpperCase()}${cleanName
+      .substring(1, cleanName.length)
+      .toLowerCase()}`;
   } else {
-    student.firstname = `${cleanMName.substring(0, 1).toUpperCase()}${cleanMName.substring(1, cleanMName.length).toLowerCase()}`;
+    student.firstname = `${cleanMName.substring(0, 1).toUpperCase()}${cleanMName
+      .substring(1, cleanMName.length)
+      .toLowerCase()}`;
     student.middlename = "";
   }
   if (cleanMName.startsWith('"')) {
@@ -158,7 +189,9 @@ function prepareObject(jsonObject) {
   } else {
     student.blood = "Muggle";
   }
-  student.house = `${cleanHouse.substring(0, 1).toUpperCase()}${cleanHouse.substring(1, cleanHouse.length).toLowerCase()}`;
+  student.house = `${cleanHouse.substring(0, 1).toUpperCase()}${cleanHouse
+    .substring(1, cleanHouse.length)
+    .toLowerCase()}`;
 
   // BOOLEAN FOR EXPELLED STUDENTS
   student.cantbeExpelled = false;
@@ -234,7 +267,9 @@ function filterIList(filter) {
   if (filter === "squad") {
     filterStudents = filterStudents.filter((student) => student.squad === true);
   } else {
-    filterStudents = filterStudents.filter((student) => student.squad === false);
+    filterStudents = filterStudents.filter(
+      (student) => student.squad === false
+    );
   }
   console.log("status", filterStudents);
   buildList(filterStudents);
@@ -243,9 +278,13 @@ function filterIList(filter) {
 function filterPList(filter) {
   filterStudents = allStudents;
   if (filter === "pref") {
-    filterStudents = filterStudents.filter((student) => student.prefect === true);
+    filterStudents = filterStudents.filter(
+      (student) => student.prefect === true
+    );
   } else {
-    filterStudents = filterStudents.filter((student) => student.prefect === false);
+    filterStudents = filterStudents.filter(
+      (student) => student.prefect === false
+    );
   }
   console.log("status", filterStudents);
   buildList(filterStudents);
@@ -254,9 +293,13 @@ function filterPList(filter) {
 function filterSList(filter) {
   filterStudents = allStudents;
   if (filter === "n-expelled") {
-    filterStudents = filterStudents.filter((student) => student.regStudent === true);
+    filterStudents = filterStudents.filter(
+      (student) => student.regStudent === true
+    );
   } else {
-    filterStudents = filterStudents.filter((student) => student.regStudent === false);
+    filterStudents = filterStudents.filter(
+      (student) => student.regStudent === false
+    );
   }
   console.log("status", filterStudents);
   buildList(filterStudents);
@@ -265,13 +308,21 @@ function filterSList(filter) {
 function filterHList(house) {
   filterStudents = allStudents;
   if (house === "Gryffindor") {
-    filterStudents = filterStudents.filter((student) => student.house === "Gryffindor");
+    filterStudents = filterStudents.filter(
+      (student) => student.house === "Gryffindor"
+    );
   } else if (house === "Hufflepuff") {
-    filterStudents = filterStudents.filter((student) => student.house === "Hufflepuff");
+    filterStudents = filterStudents.filter(
+      (student) => student.house === "Hufflepuff"
+    );
   } else if (house === "Ravenclaw") {
-    filterStudents = filterStudents.filter((student) => student.house === "Ravenclaw");
+    filterStudents = filterStudents.filter(
+      (student) => student.house === "Ravenclaw"
+    );
   } else if (house === "Slytherin") {
-    filterStudents = filterStudents.filter((student) => student.house === "Slytherin");
+    filterStudents = filterStudents.filter(
+      (student) => student.house === "Slytherin"
+    );
   }
   console.log(filterStudents);
   //   let purestudents = filterStudents.filter(isPure);
@@ -284,11 +335,17 @@ function filterBList(blood) {
   filterStudents = allStudents;
 
   if (blood === "Pure Blood") {
-    filterStudents = filterStudents.filter((student) => student.blood === "Pure Blood");
+    filterStudents = filterStudents.filter(
+      (student) => student.blood === "Pure Blood"
+    );
   } else if (blood === "Half-Blood") {
-    filterStudents = filterStudents.filter((student) => student.blood === "Half-Blood");
+    filterStudents = filterStudents.filter(
+      (student) => student.blood === "Half-Blood"
+    );
   } else {
-    filterStudents = filterStudents.filter((student) => student.blood === "Muggle");
+    filterStudents = filterStudents.filter(
+      (student) => student.blood === "Muggle"
+    );
   }
 
   console.log(filterStudents);
@@ -324,7 +381,9 @@ function displayList(students) {
 ///
 ////
 function displayStudent(student) {
-  const clone = document.querySelector("template#student").content.cloneNode(true);
+  const clone = document
+    .querySelector("template#student")
+    .content.cloneNode(true);
 
   // set clone data
   clone.querySelector("[data-field=fname]").textContent = student.firstname;
@@ -358,33 +417,63 @@ function displayStudent(student) {
 
   //SET COUNTER
 
-  document.querySelector("#all-counter").textContent = `(${allStudents.length})`;
+  document.querySelector(
+    "#all-counter"
+  ).textContent = `(${allStudents.length})`;
   document.querySelector("#pref-counter").textContent = `(${prefects.length})`;
-  document.querySelector("#squad-counter").textContent = `(${squadStudents.length})`;
-  document.querySelector("#expell-counter").textContent = `(${expelledStudents.length})`;
+  document.querySelector(
+    "#squad-counter"
+  ).textContent = `(${squadStudents.length})`;
+  document.querySelector(
+    "#expell-counter"
+  ).textContent = `(${expelledStudents.length})`;
 
-  let countingPrefects = allStudents.filter((student) => student.prefect === true);
+  let countingPrefects = allStudents.filter(
+    (student) => student.prefect === true
+  );
 
-  let countingRegStudents = allStudents.filter((student) => student.regStudent === true);
+  let countingRegStudents = allStudents.filter(
+    (student) => student.regStudent === true
+  );
 
-  document.querySelector("#pref-counter").textContent = `(${countingPrefects.length})`;
+  document.querySelector(
+    "#pref-counter"
+  ).textContent = `(${countingPrefects.length})`;
 
-  document.querySelector("#reg-counter").textContent = `(${countingRegStudents.length})`;
+  document.querySelector(
+    "#reg-counter"
+  ).textContent = `(${countingRegStudents.length})`;
 
-  let countingPureBloods = allStudents.filter((student) => student.blood === "Pure Blood");
-  document.querySelector("#pureb-counter").textContent = `(${countingPureBloods.length})`;
+  let countingPureBloods = allStudents.filter(
+    (student) => student.blood === "Pure Blood"
+  );
+  document.querySelector(
+    "#pureb-counter"
+  ).textContent = `(${countingPureBloods.length})`;
 
-  let countingHalfBloods = allStudents.filter((student) => student.blood === "Half-Blood");
-  document.querySelector("#halfb-counter").textContent = `(${countingHalfBloods.length})`;
+  let countingHalfBloods = allStudents.filter(
+    (student) => student.blood === "Half-Blood"
+  );
+  document.querySelector(
+    "#halfb-counter"
+  ).textContent = `(${countingHalfBloods.length})`;
 
-  let countingMuggles = allStudents.filter((student) => student.blood === "Muggle");
-  document.querySelector("#muggle-counter").textContent = `(${countingMuggles.length})`;
+  let countingMuggles = allStudents.filter(
+    (student) => student.blood === "Muggle"
+  );
+  document.querySelector(
+    "#muggle-counter"
+  ).textContent = `(${countingMuggles.length})`;
 
   // EVENTLISTENERS FOR POPUP BOX
   clone.querySelector("[data-field='lname'").addEventListener("click", openPU);
   clone.querySelector("[data-field='fname'").addEventListener("click", openPU);
-  clone.querySelector("[data-field=pref]").addEventListener("click", prefClicked);
-  clone.querySelector("[data-field=squad]").addEventListener("click", squadClicked);
+  clone
+    .querySelector("[data-field=pref]")
+    .addEventListener("click", prefClicked);
+  clone
+    .querySelector("[data-field=squad]")
+    .addEventListener("click", squadClicked);
 
   ////FUNCTIONS FOR CLICK
 
@@ -408,7 +497,9 @@ function displayStudent(student) {
   }
 
   function checkPref(student) {
-    const prefectsHouse = prefects.filter((stud) => stud.house === student.house);
+    const prefectsHouse = prefects.filter(
+      (stud) => stud.house === student.house
+    );
     console.log(prefectsHouse);
     const nrHouse = prefectsHouse.length;
 
@@ -416,7 +507,9 @@ function displayStudent(student) {
       if (nrHouse >= 2) {
         console.log("you can have only 2 per house", prefectsHouse[1].house);
         student.prefect = false;
-        document.querySelector("#pref-text").textContent = `Remove a student from ${prefectsHouse[1].house} to continue`;
+        document.querySelector(
+          "#pref-text"
+        ).textContent = `Remove a student from ${prefectsHouse[1].house} to continue`;
         document.querySelector("#pref-popup").classList.remove("hidden");
         document.querySelector("#pref-btn").addEventListener("click", closePU);
       } else {
@@ -435,7 +528,6 @@ function displayStudent(student) {
   }
 
   function squadClicked() {
-   
     console.log("squad is clicked");
 
     if (systemHacked === false) {
@@ -460,7 +552,9 @@ function displayStudent(student) {
           // console.log(squadStudents);
           document.querySelector("#squad-popup").classList.remove("hidden");
 
-          document.querySelector("#squad-btn").addEventListener("click", closePU);
+          document
+            .querySelector("#squad-btn")
+            .addEventListener("click", closePU);
         }
       } else {
         student.squad = false;
@@ -499,9 +593,11 @@ function displayStudent(student) {
     console.log("show student info", student.lastname);
     document.querySelector("#student-popup").classList.remove("hidden");
     if (student.alias) {
-      document.querySelector("#popup-name").textContent = student.firstname + " " + student.alias + " " + student.lastname;
+      document.querySelector("#popup-name").textContent =
+        student.firstname + " " + student.alias + " " + student.lastname;
     } else {
-      document.querySelector("#popup-name").textContent = student.firstname + " " + student.middlename + " " + student.lastname;
+      document.querySelector("#popup-name").textContent =
+        student.firstname + " " + student.middlename + " " + student.lastname;
     }
 
     if (student.regStudent) {
@@ -514,9 +610,11 @@ function displayStudent(student) {
 
     if (student.squad) {
       // Member of the Inquisitory Squad
-      document.querySelector("#popup-sq").textContent = "Member of the Inquisitory Squad";
+      document.querySelector("#popup-sq").textContent =
+        "Member of the Inquisitory Squad";
     } else {
-      document.querySelector("#popup-sq").textContent = "Not Member of the Inquisitory Squad";
+      document.querySelector("#popup-sq").textContent =
+        "Not Member of the Inquisitory Squad";
     }
 
     //FOR HOUSE IMG
@@ -526,7 +624,9 @@ function displayStudent(student) {
     // ).src = `/assets/${student.house}-flag.svg`;
     // document.querySelector("#house-logo").src = `/assets/${student.house}.png`;
 
-    document.querySelector("#house-logo").src = `/house-flags/${student.house}.svg`;
+    document.querySelector(
+      "#house-logo"
+    ).src = `/house-flags/${student.house}.svg`;
 
     document.querySelector("#popup-house").textContent = student.house;
 
@@ -534,45 +634,58 @@ function displayStudent(student) {
 
     if (student.lastname.includes("-")) {
       let urlImage;
-      let imglastName = student.lastname.substring(student.lastname.indexOf("-") + 1);
-      urlImage = imglastName + "_" + student.firstname.charAt(0).toLowerCase() + ".png";
+      let imglastName = student.lastname.substring(
+        student.lastname.indexOf("-") + 1
+      );
+      urlImage =
+        imglastName + "_" + student.firstname.charAt(0).toLowerCase() + ".png";
       console.log(urlImage);
       document.querySelector("#student-pic").src = `/students-pics/${urlImage}`;
     } else {
-      document.querySelector("#student-pic").src = `/students-pics/${student.lastname}_${student.firstname.charAt(0)}.png`;
+      document.querySelector("#student-pic").src = `/students-pics/${
+        student.lastname
+      }_${student.firstname.charAt(0)}.png`;
     }
 
     if (student.lastname === "Patil") {
-      document.querySelector("#student-pic").src = `/students-pics/${student.lastname}_${student.firstname}.png`;
+      document.querySelector(
+        "#student-pic"
+      ).src = `/students-pics/${student.lastname}_${student.firstname}.png`;
     }
 
     if (student.hasImg === false) {
       document.querySelector("#student-pic").src = `/students-pics/no_img.png`;
     }
 
-    document.querySelector("#house-logo").src = `/house-flags/${student.house}.svg`;
+    document.querySelector(
+      "#house-logo"
+    ).src = `/house-flags/${student.house}.svg`;
 
     // document.querySelector("#house-logo").src = `/icons/${student.house}.png`;
 
     document.querySelector("#popup-close").addEventListener("click", closePU);
 
     // FOR EXPELLED STUDENT
-    document.querySelector("#popup-expell").addEventListener("click", expellStudent);
+    document
+      .querySelector("#popup-expell")
+      .addEventListener("click", expellStudent);
 
     buildList();
 
     function expellStudent() {
       if (student.cantbeExpelled === true) {
         document
-      .querySelector("#popup-expell")
-      .addEventListener("click", cantExpell);
-
+          .querySelector("#popup-expell")
+          .addEventListener("click", cantExpell);
       } else {
         expelledStudents.push(student);
 
         student.regStudent = false;
-        document.querySelector("#popup-expell").removeEventListener("click", expellStudent);
-        document.querySelector("#popup-status").textContent = "Expelled Student";
+        document
+          .querySelector("#popup-expell")
+          .removeEventListener("click", expellStudent);
+        document.querySelector("#popup-status").textContent =
+          "Expelled Student";
 
         console.log(student.firstname + " is expelled");
       }
@@ -588,7 +701,6 @@ function closePU() {
   document.querySelector("#pref-popup").classList.add("hidden");
   document.querySelector("#squad-popup").classList.add("hidden");
   document.querySelector("#hack-popup").classList.add("hidden");
-
 }
 
 function closeSquad() {
@@ -599,6 +711,8 @@ function closeSquad() {
 
 function hackTheSystem() {
   document.querySelector(".hack").removeEventListener("click", hackTheSystem);
+
+  console.log("hackpopup");
   systemHacked = true;
   allStudents.push(mella);
   allStudents.push(maja);
@@ -606,14 +720,22 @@ function hackTheSystem() {
   buildList();
 }
 
-function cantExpell() {
-  document.querySelector("#hack-popup").classList.remove("hidden");
-  document.querySelector("#hack-btn")
-            .addEventListener("click", closePU);
-
+function hackTheSystemPU() {
+  document.querySelector("#hackedsystem-popup").classList.remove("hidden");
+  setTimeout(hackTheSystemClosePU, 2000);
 }
 
+function hackTheSystemClosePU() {
+  document.querySelector("#hackedsystem-popup").classList.add("hidden");
+}
+// function openHackedPU() {
+//   document.querySelector("#hackedsystem-popup").classList.remove("hidden");
+// }
 
+function cantExpell() {
+  document.querySelector("#hack-popup").classList.remove("hidden");
+  document.querySelector("#hack-btn").addEventListener("click", closePU);
+}
 
 function randomBlood(student) {
   console.log(student);
