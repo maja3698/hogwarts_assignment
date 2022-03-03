@@ -507,25 +507,25 @@ function displayStudent(student) {
   // }
 
   function squadClicked() {
-    // document.querySelector("#squad-btn").addEventListener("click", closeSquad);
-    // if (student.blood === "Pure Blood" || student.house === "Slytherin") {
-    //   if (student.squad === true) {
-    //     student.squad = false;
-
-    //     const index = squadStudents.indexOf(student);
-
-    //     squadStudents.splice(index, 1);
-    //   } else {
-    //     student.squad = true;
-
-    //     squadStudents.push(student);
-    //     console.log(squadStudents);
-    //   }
-    // } else {
-    //   console.log("you cant be squad");
-
-    document.querySelector("#squad-popup").classList.remove("hidden");
+    document.querySelector("#squad-btn").addEventListener("click", closeSquad);
     console.log("squad is clicked");
+    if (student.blood === "Pure Blood" || student.house === "Slytherin") {
+      if (student.squad === true) {
+        student.squad = false;
+
+        const index = squadStudents.indexOf(student);
+
+        squadStudents.splice(index, 1);
+      } else {
+        console.log("you cant be squad");
+        student.squad = true;
+
+        //     squadStudents.push(student);
+        console.log(squadStudents);
+        document.querySelector("#squad-popup").classList.remove("hidden");
+      }
+    }
+
     if (systemHacked === false) {
       if (student.squad) {
         student.squad = false;
@@ -673,10 +673,9 @@ function closePU() {
   document.querySelector("#squad-popup").classList.add("hidden");
 }
 
-// function closeSquad() {
-//   document.querySelector("#squad-popup").classList.add("hidden");
-
-// }
+function closeSquad() {
+  document.querySelector("#squad-popup").classList.add("hidden");
+}
 
 //hacking
 let clicked = true;
