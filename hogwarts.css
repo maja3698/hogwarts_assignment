@@ -286,6 +286,7 @@ button:hover {
   height: 2vw;
   border-radius: 6px;
   font-size: 0.9vw;
+  border: solid #e2a226;
 }
 
 #student-pic {
@@ -307,3 +308,4 @@ button:hover {
   font-size: 1.5vw;
   color: #4b2222;
 }
+
