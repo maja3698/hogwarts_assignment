@@ -132,6 +132,14 @@
   padding: 2rem;
 }
 
+#pref-popup {
+  background-color: aliceblue;
+  position: fixed;
+  top: 50%;
+  left: 25%;
+  padding: 2rem;
+}
+
 .hidden {
   display: none;
 }
