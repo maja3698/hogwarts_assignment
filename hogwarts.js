@@ -50,7 +50,7 @@ const maja = {
   image: "/students-pics/irimia_m.png",
   house: "Ravenclaw",
   status: false,
-  blood: "Half-Blood",
+  blood: "Pure Blood",
   prefect: false,
   squad: false,
   gender: "girl",
@@ -714,15 +714,15 @@ function closeSquad() {
 }
 
 //hacking
+let clicked = true;
+document.querySelector(".hack").removeEventListener("click", hackTheSystem);
 
 function hackTheSystem() {
-  document.querySelector(".hack").removeEventListener("click", hackTheSystem);
-
   console.log("hackpopup");
   systemHacked = true;
+  allStudents.forEach(randomBlood);
   allStudents.push(mella);
   allStudents.push(maja);
-  allStudents.forEach(randomBlood);
   buildList();
 }
 
@@ -734,9 +734,6 @@ function hackTheSystemPU() {
 function hackTheSystemClosePU() {
   document.querySelector("#hackedsystem-popup").classList.add("hidden");
 }
-// function openHackedPU() {
-//   document.querySelector("#hackedsystem-popup").classList.remove("hidden");
-// }
 
 function cantExpell() {
   document.querySelector("#hack-popup").classList.remove("hidden");
