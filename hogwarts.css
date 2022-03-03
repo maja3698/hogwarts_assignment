@@ -32,7 +32,7 @@
 }
 
 #list tbody tr:nth-child(odd) td {
-  background-color: rgba(201, 120, 255, 0.397);
+  background-color: #5d3838;
   border-right: rgb(240, 249, 255) 1px dotted;
 }
 
@@ -287,7 +287,7 @@ button:hover {
   font-size: 0.9vw;
 }
 
-#student-pic{
+#student-pic {
   width: 150px;
   height: auto;
 }
