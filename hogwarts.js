@@ -103,6 +103,8 @@ const halfBloodFamilies = [
 ];
 let systemHacked = false;
 
+let systemHacked = false;
+
 window.addEventListener("DOMContentLoaded", setUp);
 
 let allStudents = [];
@@ -149,8 +151,6 @@ function setUp() {
   document
     .querySelector("[data-action='filterI']")
     .addEventListener("click", selectFilterI);
-
-  document.querySelector(".searchbar").addEventListener("input", searchBar);
 
   // SORTING EVENTS:
   document
@@ -579,13 +579,26 @@ function displayStudent(student) {
       buildList();
     }
 
+    //     <div id="popup-header">
+    //     <div id="popup-title">
+    //         <h2 id="popup-name">Harry Potter</h2>
+    //         <h3 id="popup-house">House <span id="stud-house">Griffindor</span></h3>
+    //     </div>
+    //     <div id="popup-house-logo">G</div>
+    // </div>
+    // <p id="popup-pref">Prefect</p>
+    // <p id="popup-p-blood">Pure Blood</p>
+    // <p id="popup-h-blood">Half Blood</p>
+    // <p id="popup-muggle">Muggle</p>
+    // <p id="popup-sq"><span id="popup-squad">Not </span>Member of the Inquisitory Squad</p>
+    // <p id="popup-stud-st">Student Status: <span id="poup-status">Regular</span></p>
+    // <div id="popup-btns">
+    //     <button id="popup-expell">Expell Student</button>
+    //     <button id="popup-close">Close Window</button>
+    // </div>
   }
   document.querySelector("#list tbody").appendChild(clone);
 }
-
-
-
-
 
 function closePU() {
   document.querySelector("#student-popup").classList.add("hidden");
