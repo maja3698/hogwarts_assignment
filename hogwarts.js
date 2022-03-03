@@ -435,9 +435,7 @@ function displayStudent(student) {
   }
 
   function squadClicked() {
-    // document.querySelector("#squad-btn").addEventListener("click", closeSquad);
-
-    // document.querySelector("#squad-popup").classList.remove("hidden");
+   
     console.log("squad is clicked");
 
     if (systemHacked === false) {
