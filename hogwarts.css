@@ -37,6 +37,7 @@
 }
 
 #list tbody tr:nth-child(even) td {
+  background-color: #4b2222;
   border-right: rgb(171, 219, 252) 1px dotted;
 }
 
