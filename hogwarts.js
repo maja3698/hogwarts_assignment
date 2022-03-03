@@ -670,6 +670,10 @@ function displayStudent(student) {
 
     function expellStudent() {
       if (student.cantbeExpelled === true) {
+        document
+      .querySelector("#popup-expell")
+      .addEventListener("click", cantExpell);
+
       } else {
         expelledStudents.push(student);
 
@@ -693,6 +697,8 @@ function closePU() {
   document.querySelector("#student-popup").classList.add("hidden");
   document.querySelector("#pref-popup").classList.add("hidden");
   document.querySelector("#squad-popup").classList.add("hidden");
+  document.querySelector("#hack-popup").classList.add("hidden");
+
 }
 
 function closeSquad() {
@@ -713,6 +719,15 @@ function hackTheSystem() {
   buildList();
   
 }
+
+function cantExpell() {
+  document.querySelector("#hack-popup").classList.remove("hidden");
+  document.querySelector("#hack-btn")
+            .addEventListener("click", closePU);
+
+}
+
+
 
 function randomBlood(student) {
   console.log(student);
