@@ -10,44 +10,65 @@
 </head>
 
 <body>
-  <h1>HOGWARTS STUDENT LIST</h1>
-  <p>
-    <input class="searchbar" type="text" placeholder="Search.." name="search" />
-    <!-- <button type="search">search</button> -->
-    <br />
-    <br />
-    Filter:
-    <button class="filter-expelled" data-action="filterS" data-filter="expelled">Expelled Students</button>
-    <button class="filter-n-expelled" data-action="filterS" data-filter="n-expelled">Non-Expelled Students</button>
-    <button class="filter-prefects" data-action="filterP" data-filter="pref">Prefects</button>
-    <!-- <button class="filter-n-prefects" data-action="filter" data-filter="n-prefects">Non-Prefects</button> -->
-    <button class="filter-inquisitorial" data-action="filterI" data-filter="squad">Inquisitorial squad</button>
-    <button class="filter-pure" data-action="filterB" data-filter="Pure Blood">Pure bloods</button>
-    <button class="filter-half" data-action="filterB" data-filter="Half-Blood">Half-Blood</button>
-    <button class="filter-muggle" data-action="filterB" data-filter="Muggle">Muggle</button>
-    <button class="filter-all" data-action="filter" data-filter="*">All</button>
-    <br />
-    <br />
-    Filter by House:
-    <button id="grif-btn" data-action="filterH" data-filter="Gryffindor">Gryffindor</button>
-    <button id="slyt-btn" data-action="filterH" data-filter="Slytherin">Slytherin</button>
-    <button id="rave-btn" data-action="filterH" data-filter="Ravenclaw">Ravenclaw</button>
-    <button id="huff-btn" data-action="filterH" data-filter="Hufflepuff">Hufflepuff</button>
-  </p>
+  <header>
+    <h1>Hogwarts School of
+      <br>
+      Witchcraft and Wizardry </h1>
+  </header>
+  <main>
+    <div class="filterHouse">
+      <p>Filter by House:</p>
+      <p class="filtersline">
+        <img id="grif-btn" data-action="filterH" data-filter="Gryffindor" src="/house-flags/Gryffindor.svg" alt=""
+          height="70"></button>
+        <img id="slyt-btn" data-action="filterH" data-filter="Slytherin" src="/house-flags/Slytherin.svg" alt=""
+          height="70"></button>
+        <img id="rave-btn" data-action="filterH" data-filter="Ravenclaw" src="/house-flags/Ravenclaw.svg" alt=""
+          height="70"></button>
+        <img id="huff-btn" data-action="filterH" data-filter="Hufflepuff" src="/house-flags/Hufflepuff.svg" alt=""
+          height="70"></button>
+      </p>
+    </div>
+  </main>
 
-  <hr />
+  <aside> <input type="text" placeholder="Search.." name="search" />
+    <button type="search">search</button>
+    <br />
+    <br />
+
+    <div class="filter-container">
+      <p>Filter by:</p>
+      <button class="filter-expelled" data-action="filterS" data-filter="expelled">Expelled Students</button>
+      <button class="filter-n-expelled" data-action="filterS" data-filter="n-expelled">Non-Expelled
+        Students</button>
+      <button class="filter-pure" data-action="filterB" data-filter="Pure Blood">Pure bloods</button>
+      <button class="filter-half" data-action="filterB" data-filter="Half-Blood">Half-Blood</button>
+    </div>
+    <div class="sort-container">
+      <p>Sort by:</p>
+      <button class="filter-prefects" data-action="filterP" data-filter="pref">Prefects</button>
+      <!-- <button class="filter-n-prefects" data-action="filter" data-filter="n-prefects">Non-Prefects</button> -->
+      <button class="filter-inquisitorial" data-action="filterI" data-filter="squad">Inquisitorial squad</button>
+      <button class="filter-muggle" data-action="filterB" data-filter="Muggle">Muggle</button>
+      <button class="filter-all" data-action="filter" data-filter="*">All</button>
+      <br />
+      <br />
+    </div>
+  </aside>
+
+  <!-- <hr /> -->
 
   <table id="list">
     <thead>
       <tr id="sorting">
-        <th data-action="sort" data-sort-direction="asc" data-sort="blood-status">Blood</th>
-        <th data-action="sort" data-sort-direction="asc" data-sort="firstname">First name</th>
-        <th data-action="sort" data-sort-direction="asc" data-sort="middlename">Middle name</th>
-        <th data-action="sort" data-sort-direction="asc" data-sort="lastname">Last name</th>
-        <th data-action="sort" data-sort-direction="asc" data-sort="house">House</th>
-        <th data-action="sort" data-sort-direction="asc" data-sort="pref">P</th>
-        <th data-action="sort" data-sort-direction="asc" data-sort="status">Status</th>
-        <th data-action="sort" data-sort-direction="asc" data-sort="squad">Inquisitorial Squad</th>
+        <th class="filter" data-action="sort" data-sort-direction="asc" data-sort="blood-status">Blood</th>
+        <th class="filter" data-action="sort" data-sort-direction="asc" data-sort="firstname">First name</th>
+        <th class="filter" data-action="sort" data-sort-direction="asc" data-sort="middlename">Middle name</th>
+        <th class="filter" data-action="sort" data-sort-direction="asc" data-sort="lastname">Last name</th>
+        <th class="filter" data-action="sort" data-sort-direction="asc" data-sort="house">House</th>
+        <th class="filter" data-action="sort" data-sort-direction="asc" data-sort="pref">P</th>
+        <th class="filter" data-action="sort" data-sort-direction="asc" data-sort="status">Status</th>
+        <th class="filter" data-action="sort" data-sort-direction="asc" data-sort="squad">Inquisitorial Squad</th>
         <th></th>
       </tr>
     </thead>
@@ -59,15 +80,16 @@
   <template id="student">
     <tr id="student-line">
 
-      <td data-field="blood-status" class="sorting">Blood</td>
-      <td data-field="fname">First name</td>
-      <td data-field="mname">Middle name</td>
-      <td data-field="lname">Last name</td>
-      <td data-field="house">House</td>
+      <td class="popuptext" data-field="blood-status" class="sorting">Blood</td>
+      <td class="popuptext" data-field="fname">First name</td>
+      <td class="popuptext" data-field="mname">Middle name</td>
+      <td class="popuptext" data-field="lname">Last name</td>
+      <td class="popuptext" data-field="house">House</td>
       <td data-field="pref"><img src="/house-flags/prefects.svg" alt="inquisitory squad badge" class="pref-badge"
           height="22" width="22"></td>
-      <td data-field="status">Status</td>
-      <td data-field="squad" class="i-badge"> 🧶 </td>
+      <td class="popuptext" data-field="status">Status</td>
+      <td data-field="squad"><img src="/house-flags/inquisitorial.svg" alt="inquisitory squad badge" class="i-badge"
+          height="22" width="22"></td>
     </tr>
 
     <!-- <td data-field="squad"><img src="/assets/i-squad.png" alt="inquisitory squad badge"
