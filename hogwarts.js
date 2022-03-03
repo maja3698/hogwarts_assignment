@@ -1,75 +1,75 @@
 "use strict";
 
-const pureBloodFamilies = [
-  "Boot",
-  "Cornfoot",
-  "Abbott",
-  "Avery",
-  "Black",
-  "Blishwick",
-  "Brown",
-  "Bulstrode",
-  "Burke",
-  "Carrow",
+// const pureBloodFamilies = [
+//   "Boot",
+//   "Cornfoot",
+//   "Abbott",
+//   "Avery",
+//   "Black",
+//   "Blishwick",
+//   "Brown",
+//   "Bulstrode",
+//   "Burke",
+//   "Carrow",
 
-  "Crabbe",
-  "Crouch",
-  "Fawley",
-  "Flint",
-  "Gamp",
-  "Gaunt",
-  "Goyle",
-  "Greengrass",
-  "Kama",
-  "Lestrange",
-  "Longbottom",
-  "MacDougal",
-  "Macmillan",
+//   "Crabbe",
+//   "Crouch",
+//   "Fawley",
+//   "Flint",
+//   "Gamp",
+//   "Gaunt",
+//   "Goyle",
+//   "Greengrass",
+//   "Kama",
+//   "Lestrange",
+//   "Longbottom",
+//   "MacDougal",
+//   "Macmillan",
 
-  "Malfoy",
-  "Max",
-  "Moody",
-  "Nott",
-  "Ollivander",
-  "Parkinson",
-  "Peverell",
-  "Potter",
-  "Prewett",
-  "Prince",
-  "Rosier",
-  "Rowle",
-  "Sayre",
-  "Selwyn",
+//   "Malfoy",
+//   "Max",
+//   "Moody",
+//   "Nott",
+//   "Ollivander",
+//   "Parkinson",
+//   "Peverell",
+//   "Potter",
+//   "Prewett",
+//   "Prince",
+//   "Rosier",
+//   "Rowle",
+//   "Sayre",
+//   "Selwyn",
 
-  "Shacklebolt",
-  "Shafiq",
-  "Slughorn",
-  "Slytherin",
-  "Travers",
-  "Tremblay",
-  "Tripe",
-  "Urquart",
-  "Weasley",
-  "Yaxley",
-  "Bletchley",
-  "Dumbledore",
+//   "Shacklebolt",
+//   "Shafiq",
+//   "Slughorn",
+//   "Slytherin",
+//   "Travers",
+//   "Tremblay",
+//   "Tripe",
+//   "Urquart",
+//   "Weasley",
+//   "Yaxley",
+//   "Bletchley",
+//   "Dumbledore",
 
-  "Fudge",
-  "Gibbon",
-  "Gryffindor",
-  "Higgs",
-  "Lowe",
-  "Macnair",
-  "Montague",
-  "Mulciber",
-  "Orpington",
-  "Pyrites",
-  "Perks",
-  "Runcorn",
-  "Wilkes",
+//   "Fudge",
+//   "Gibbon",
+//   "Gryffindor",
+//   "Higgs",
+//   "Lowe",
+//   "Macnair",
+//   "Montague",
+//   "Mulciber",
+//   "Orpington",
+//   "Pyrites",
+//   "Perks",
+//   "Runcorn",
+//   "Wilkes",
 
-  "Zabini",
-];
+//   "Zabini",
+// ];
 
 const me = {
   firstname: "Melania",
@@ -86,23 +86,22 @@ const me = {
   cantbeExpelled: true,
 };
 
-const halfBloodFamilies = [
-  "Abbott",
-  "Bones",
-  "Jones",
-  "Hopkins",
-  "Finnigan",
-  "Potter",
-  "Brocklehurst",
-  "Goldstein",
-  "Corner",
-  "Bulstrode",
-  "Patil",
-  "Li",
-  "Thomas",
-];
+// const halfBloodFamilies = [
+//   "Abbott",
+//   "Bones",
+//   "Jones",
+//   "Hopkins",
+//   "Finnigan",
+//   "Potter",
+//   "Brocklehurst",
+//   "Goldstein",
+//   "Corner",
+//   "Bulstrode",
+//   "Patil",
+//   "Li",
+//   "Thomas",
+// ];
 let systemHacked = false;
-
 
 window.addEventListener("DOMContentLoaded", setUp);
 
@@ -111,6 +110,7 @@ let filterStudents;
 let expelledStudents = [];
 let regStudents;
 let squadStudents = [];
+let familiesArray = [];
 
 // let studentBlood = student.blood;
 // The prototype for all animals:
@@ -134,9 +134,13 @@ function setUp() {
   // TODO: Add event-listeners to filter and sort button
 
   //FILTERS EVENTS:
-  document.querySelectorAll("[data-action='filterB']").forEach((button) => button.addEventListener("click", selectFilterB));
+  document
+    .querySelectorAll("[data-action='filterB']")
+    .forEach((button) => button.addEventListener("click", selectFilterB));
 
-  document.querySelectorAll("[data-action='filterH']").forEach((button) => button.addEventListener("click", selectFilterH));
+  document
+    .querySelectorAll("[data-action='filterH']")
+    .forEach((button) => button.addEventListener("click", selectFilterH));
   document.querySelector(".filter-all").addEventListener("click", showAll);
 
   document
@@ -170,12 +174,18 @@ function searchBar(e) {
       student.house.toLowerCase().includes(searchString)
     );
   });
-  displayList(searchedStudents);
+  buildList(searchedStudents);
 }
 
 async function loadJSON() {
-  const response = await fetch("https://petlatkea.dk/2021/hogwarts/students.json");
+  const response = await fetch(
+    "https://petlatkea.dk/2021/hogwarts/students.json"
+  );
   const jsonData = await response.json();
+  const familiesData = await fetch(
+    "https://petlatkea.dk/2021/hogwarts/families.json"
+  );
+  familiesArray = await familiesData.json();
 
   // when loaded, prepare data objects
   prepareObjects(jsonData);
@@ -196,7 +206,10 @@ function prepareObject(jsonObject) {
   const student = Object.create(Student);
   let cleanFullname = jsonObject.fullname.trim();
   let firstName = cleanFullname.substring(0, cleanFullname.indexOf(" "));
-  let middleName = cleanFullname.substring(cleanFullname.indexOf(" "), cleanFullname.lastIndexOf(" "));
+  let middleName = cleanFullname.substring(
+    cleanFullname.indexOf(" "),
+    cleanFullname.lastIndexOf(" ")
+  );
   let lastName = cleanFullname.substring(cleanFullname.lastIndexOf(" "));
 
   let cleanHouse = jsonObject.house.trim();
@@ -204,20 +217,30 @@ function prepareObject(jsonObject) {
   let cleanName = firstName.trim();
   let cleanMName = middleName.trim();
 
-  student.lastname = `${cleanLName.substring(0, 1).toUpperCase()}${cleanLName.substring(1, cleanLName.length).toLowerCase()}`;
-  student.middlename = `${cleanMName.substring(0, 1).toUpperCase()}${cleanMName.substring(1, cleanMName.length).toLowerCase()}`;
+  student.lastname = `${cleanLName.substring(0, 1).toUpperCase()}${cleanLName
+    .substring(1, cleanLName.length)
+    .toLowerCase()}`;
+  student.middlename = `${cleanMName.substring(0, 1).toUpperCase()}${cleanMName
+    .substring(1, cleanMName.length)
+    .toLowerCase()}`;
   if (firstName) {
-    student.firstname = `${cleanName.substring(0, 1).toUpperCase()}${cleanName.substring(1, cleanName.length).toLowerCase()}`;
+    student.firstname = `${cleanName.substring(0, 1).toUpperCase()}${cleanName
+      .substring(1, cleanName.length)
+      .toLowerCase()}`;
   } else {
-    student.firstname = `${cleanMName.substring(0, 1).toUpperCase()}${cleanMName.substring(1, cleanMName.length).toLowerCase()}`;
+    student.firstname = `${cleanMName.substring(0, 1).toUpperCase()}${cleanMName
+      .substring(1, cleanMName.length)
+      .toLowerCase()}`;
     student.middlename = "";
   }
   if (cleanMName.startsWith('"')) {
     student.middlename = "";
+    student.alias = cleanMName;
   }
 
   // BOOLEAN FOR BLOOD STATUS
-
+  let pureBloodFamilies = familiesArray.pure;
+  let halfBloodFamilies = familiesArray.half;
   if (pureBloodFamilies.includes(student.lastname)) {
     student.blood = "Pure Blood";
   } else if (halfBloodFamilies.includes(student.lastname)) {
@@ -225,7 +248,9 @@ function prepareObject(jsonObject) {
   } else {
     student.blood = "Muggle";
   }
-  student.house = `${cleanHouse.substring(0, 1).toUpperCase()}${cleanHouse.substring(1, cleanHouse.length).toLowerCase()}`;
+  student.house = `${cleanHouse.substring(0, 1).toUpperCase()}${cleanHouse
+    .substring(1, cleanHouse.length)
+    .toLowerCase()}`;
 
   // BOOLEAN FOR EXPELLED STUDENTS
   student.cantbeExpelled = false;
@@ -301,7 +326,9 @@ function filterIList(filter) {
   if (filter === "squad") {
     filterStudents = filterStudents.filter((student) => student.squad === true);
   } else {
-    filterStudents = filterStudents.filter((student) => student.squad === false);
+    filterStudents = filterStudents.filter(
+      (student) => student.squad === false
+    );
   }
   console.log("status", filterStudents);
   buildList(filterStudents);
@@ -310,9 +337,13 @@ function filterIList(filter) {
 function filterPList(filter) {
   filterStudents = allStudents;
   if (filter === "pref") {
-    filterStudents = filterStudents.filter((student) => student.prefect === true);
+    filterStudents = filterStudents.filter(
+      (student) => student.prefect === true
+    );
   } else {
-    filterStudents = filterStudents.filter((student) => student.prefect === false);
+    filterStudents = filterStudents.filter(
+      (student) => student.prefect === false
+    );
   }
   console.log("status", filterStudents);
   buildList(filterStudents);
@@ -321,9 +352,13 @@ function filterPList(filter) {
 function filterSList(filter) {
   filterStudents = allStudents;
   if (filter === "n-expelled") {
-    filterStudents = filterStudents.filter((student) => student.regStudent === true);
+    filterStudents = filterStudents.filter(
+      (student) => student.regStudent === true
+    );
   } else {
-    filterStudents = filterStudents.filter((student) => student.regStudent === false);
+    filterStudents = filterStudents.filter(
+      (student) => student.regStudent === false
+    );
   }
   console.log("status", filterStudents);
   buildList(filterStudents);
@@ -332,13 +367,21 @@ function filterSList(filter) {
 function filterHList(house) {
   filterStudents = allStudents;
   if (house === "Gryffindor") {
-    filterStudents = filterStudents.filter((student) => student.house === "Gryffindor");
+    filterStudents = filterStudents.filter(
+      (student) => student.house === "Gryffindor"
+    );
   } else if (house === "Hufflepuff") {
-    filterStudents = filterStudents.filter((student) => student.house === "Hufflepuff");
+    filterStudents = filterStudents.filter(
+      (student) => student.house === "Hufflepuff"
+    );
   } else if (house === "Ravenclaw") {
-    filterStudents = filterStudents.filter((student) => student.house === "Ravenclaw");
+    filterStudents = filterStudents.filter(
+      (student) => student.house === "Ravenclaw"
+    );
   } else if (house === "Slytherin") {
-    filterStudents = filterStudents.filter((student) => student.house === "Slytherin");
+    filterStudents = filterStudents.filter(
+      (student) => student.house === "Slytherin"
+    );
   }
   console.log(filterStudents);
   //   let purestudents = filterStudents.filter(isPure);
@@ -351,11 +394,17 @@ function filterBList(blood) {
   filterStudents = allStudents;
 
   if (blood === "Pure Blood") {
-    filterStudents = filterStudents.filter((student) => student.blood === "Pure Blood");
+    filterStudents = filterStudents.filter(
+      (student) => student.blood === "Pure Blood"
+    );
   } else if (blood === "Half-Blood") {
-    filterStudents = filterStudents.filter((student) => student.blood === "Half-Blood");
+    filterStudents = filterStudents.filter(
+      (student) => student.blood === "Half-Blood"
+    );
   } else {
-    filterStudents = filterStudents.filter((student) => student.blood === "Muggle");
+    filterStudents = filterStudents.filter(
+      (student) => student.blood === "Muggle"
+    );
   }
 
   console.log(filterStudents);
@@ -391,7 +440,9 @@ function displayList(students) {
 ///
 ////
 function displayStudent(student) {
-  const clone = document.querySelector("template#student").content.cloneNode(true);
+  const clone = document
+    .querySelector("template#student")
+    .content.cloneNode(true);
 
   // set clone data
   clone.querySelector("[data-field=fname]").textContent = student.firstname;
@@ -426,8 +477,12 @@ function displayStudent(student) {
   // EVENTLISTENERS FOR POPUP BOX
   clone.querySelector("[data-field='lname'").addEventListener("click", openPU);
   clone.querySelector("[data-field='fname'").addEventListener("click", openPU);
-  clone.querySelector("[data-field=pref]").addEventListener("click", prefClicked);
-  clone.querySelector("[data-field=squad]").addEventListener("click", squadClicked);
+  clone
+    .querySelector("[data-field=pref]")
+    .addEventListener("click", prefClicked);
+  clone
+    .querySelector("[data-field=squad]")
+    .addEventListener("click", squadClicked);
 
   function prefClicked() {
     console.log("pref is clicked");
@@ -469,7 +524,7 @@ function displayStudent(student) {
     // } else {
     //   console.log("you cant be squad");
 
-      document.querySelector("#squad-popup").classList.remove("hidden");
+    document.querySelector("#squad-popup").classList.remove("hidden");
     console.log("squad is clicked");
     if (systemHacked === false) {
       if (student.squad) {
@@ -503,7 +558,13 @@ function displayStudent(student) {
   function openPU() {
     console.log("show student info", student.lastname);
     document.querySelector("#student-popup").classList.remove("hidden");
-    document.querySelector("#popup-name").textContent = student.firstname + " " + student.middlename + " " + student.lastname;
+    if (student.alias) {
+      document.querySelector("#popup-name").textContent =
+        student.firstname + " " + student.alias + " " + student.lastname;
+    } else {
+      document.querySelector("#popup-name").textContent =
+        student.firstname + " " + student.middlename + " " + student.lastname;
+    }
 
     if (student.regStudent) {
       document.querySelector("#popup-status").textContent = "Regular Student";
@@ -539,12 +600,17 @@ function displayStudent(student) {
 
     if (student.lastname.includes("-")) {
       let urlImage;
-      let imglastName = student.lastname.substring(student.lastname.indexOf("-") + 1);
-      urlImage = imglastName + "_" + student.firstname.charAt(0).toLowerCase() + ".png";
+      let imglastName = student.lastname.substring(
+        student.lastname.indexOf("-") + 1
+      );
+      urlImage =
+        imglastName + "_" + student.firstname.charAt(0).toLowerCase() + ".png";
       console.log(urlImage);
       document.querySelector("#student-pic").src = `/students-pics/${urlImage}`;
     } else {
-      document.querySelector("#student-pic").src = `/students-pics/${student.lastname}_${student.firstname.charAt(0)}.png`;
+      document.querySelector("#student-pic").src = `/students-pics/${
+        student.lastname
+      }_${student.firstname.charAt(0)}.png`;
     }
 
     document.querySelector(
@@ -556,7 +622,9 @@ function displayStudent(student) {
     document.querySelector("#popup-close").addEventListener("click", closePU);
 
     // FOR EXPELLED STUDENT
-    document.querySelector("#popup-expell").addEventListener("click", expellStudent);
+    document
+      .querySelector("#popup-expell")
+      .addEventListener("click", expellStudent);
 
     buildList();
 
@@ -607,9 +675,8 @@ function closePU() {
 
 // function closeSquad() {
 //   document.querySelector("#squad-popup").classList.add("hidden");
-  
-// }
 
+// }
 
 //hacking
 let clicked = true;
@@ -628,7 +695,6 @@ function hackTheSystem() {
   }
 }
 
-
 function randomBlood(student) {
   console.log(student);
   if (student.blood === "Pure Blood") {
@@ -641,4 +707,3 @@ function randomBlood(student) {
     console.log(student.blood);
   }
 }
-
