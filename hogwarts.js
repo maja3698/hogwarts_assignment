@@ -71,7 +71,37 @@ const pureBloodFamilies = [
   "Zabini",
 ];
 
-const halfBloodFamilies = ["Abbott", "Bones", "Jones", "Hopkins", "Finnigan", "Potter", "Brocklehurst", "Goldstein", "Corner", "Bulstrode", "Patil", "Li", "Thomas"];
+const me = {
+  firstname: "Melania",
+  lastname: "Irimia",
+  middlename: "Gabriela",
+  image: "/students-pics/irimia_m.png",
+  house: "Gryffindor",
+  status: false,
+  blood: "Pure Blood",
+  prefect: false,
+  squad: false,
+  gender: "girl",
+  regStudent: true,
+  cantbeExpelled: true,
+};
+
+const halfBloodFamilies = [
+  "Abbott",
+  "Bones",
+  "Jones",
+  "Hopkins",
+  "Finnigan",
+  "Potter",
+  "Brocklehurst",
+  "Goldstein",
+  "Corner",
+  "Bulstrode",
+  "Patil",
+  "Li",
+  "Thomas",
+];
+let systemHacked = false;
 
 window.addEventListener("DOMContentLoaded", setUp);
 
@@ -79,7 +109,7 @@ let allStudents = [];
 let filterStudents;
 let expelledStudents = [];
 let regStudents;
-let squadStudents =[];
+let squadStudents = [];
 
 // let studentBlood = student.blood;
 // The prototype for all animals:
@@ -95,6 +125,7 @@ const Student = {
   squad: false,
   regStudent: true,
   siblings: false,
+  cantbeExpelled: false,
 };
 
 function setUp() {
@@ -198,7 +229,7 @@ function prepareObject(jsonObject) {
   student.house = `${cleanHouse.substring(0, 1).toUpperCase()}${cleanHouse.substring(1, cleanHouse.length).toLowerCase()}`;
 
   // BOOLEAN FOR EXPELLED STUDENTS
-
+  student.cantbeExpelled = false;
   student.regStudent = true;
 
   // if (student.regStudent) {
@@ -422,25 +453,50 @@ function displayStudent(student) {
   // }
 
   function squadClicked() {
-    document.querySelector("#squad-btn").addEventListener("click", closeSquad);
-    if (student.blood === "Pure Blood" || student.house === "Slytherin") {
-      if (student.squad === true) {
-        student.squad = false;
+    // document.querySelector("#squad-btn").addEventListener("click", closeSquad);
+    // if (student.blood === "Pure Blood" || student.house === "Slytherin") {
+    //   if (student.squad === true) {
+    //     student.squad = false;
 
-        const index = squadStudents.indexOf(student);
+    //     const index = squadStudents.indexOf(student);
 
-        squadStudents.splice(index, 1);
-      } else {
-        student.squad = true;
+    //     squadStudents.splice(index, 1);
+    //   } else {
+    //     student.squad = true;
 
-        squadStudents.push(student);
-        console.log(squadStudents);
-      }
-    } else {
-      console.log("you cant be squad");
+    //     squadStudents.push(student);
+    //     console.log(squadStudents);
+    //   }
+    // } else {
+    //   console.log("you cant be squad");
 
       document.querySelector("#squad-popup").classList.remove("hidden");
+    console.log("squad is clicked");
+    if (systemHacked === false) {
+      if (student.squad) {
+        student.squad = false;
+      } else {
+        student.squad = true;
+      }
+    } else {
+      squadHacked();
     }
+
+    buildList();
+  }
+
+  function squadHacked() {
+    console.log("kali");
+    squadStudents.push(student);
+    student.squad = true;
+    const myTimeout = setTimeout(hackingSquad, 5000);
+    buildList();
+  }
+
+  function hackingSquad() {
+    student.squad = false;
+    const index = squadStudents.indexOf(student);
+    squadStudents.splice(index, 1);
 
     buildList();
   }
@@ -506,41 +562,30 @@ function displayStudent(student) {
     buildList();
 
     function expellStudent() {
-      expelledStudents.push(student);
-      // const index = filterStudents.indexOf(student);
-      // regStudents = filterStudents.splice(index, 1);
+      if (student.cantbeExpelled === true) {
+      } else {
+        expelledStudents.push(student);
 
-      //add to the expelled array
-      //take out from filterstudents array
-      //change status on object
-      student.regStudent = false;
-      document.querySelector("#popup-expell").removeEventListener("click", expellStudent);
-      document.querySelector("#popup-status").textContent = "Expelled Student";
+        student.regStudent = false;
+        document
+          .querySelector("#popup-expell")
+          .removeEventListener("click", expellStudent);
+        document.querySelector("#popup-status").textContent =
+          "Expelled Student";
 
-      console.log(student.firstname + " is expelled");
+        console.log(student.firstname + " is expelled");
+      }
+
       buildList();
     }
 
-    //     <div id="popup-header">
-    //     <div id="popup-title">
-    //         <h2 id="popup-name">Harry Potter</h2>
-    //         <h3 id="popup-house">House <span id="stud-house">Griffindor</span></h3>
-    //     </div>
-    //     <div id="popup-house-logo">G</div>
-    // </div>
-    // <p id="popup-pref">Prefect</p>
-    // <p id="popup-p-blood">Pure Blood</p>
-    // <p id="popup-h-blood">Half Blood</p>
-    // <p id="popup-muggle">Muggle</p>
-    // <p id="popup-sq"><span id="popup-squad">Not </span>Member of the Inquisitory Squad</p>
-    // <p id="popup-stud-st">Student Status: <span id="poup-status">Regular</span></p>
-    // <div id="popup-btns">
-    //     <button id="popup-expell">Expell Student</button>
-    //     <button id="popup-close">Close Window</button>
-    // </div>
   }
   document.querySelector("#list tbody").appendChild(clone);
 }
+
+
+
+
 
 function closePU() {
   document.querySelector("#student-popup").classList.add("hidden");
@@ -548,9 +593,40 @@ function closePU() {
   document.querySelector("#squad-popup").classList.add("hidden");
 }
 
-function closeSquad() {
-  document.querySelector("#squad-popup").classList.add("hidden");
+// function closeSquad() {
+//   document.querySelector("#squad-popup").classList.add("hidden");
   
+// }
+
+
+//hacking
+let clicked = true;
+console.log(clicked);
+document.querySelector(".hack").addEventListener("click", hackTheSystem);
+
+function hackTheSystem() {
+  systemHacked = true;
+  allStudents.forEach(randomBlood);
+  allStudents.push(me);
+  buildList();
+  if (clicked === true) {
+    clicked = false;
+    document.querySelector(".hack").removeEventListener("click", hackTheSystem);
+    console.log(clicked);
+  }
 }
 
+
+function randomBlood(student) {
+  console.log(student);
+  if (student.blood === "Pure Blood") {
+    const types = ["Muggle", "Half Blood"];
+    const randomNumber = Math.floor(Math.random() * 2);
+    student.blood = types[randomNumber];
+    console.log(student.blood);
+  } else if (student.blood === "Half Blood") {
+    student.blood = "Pure Blood";
+    console.log(student.blood);
+  }
+}
 
