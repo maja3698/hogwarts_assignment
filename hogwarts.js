@@ -107,11 +107,19 @@ function setUp() {
   document.querySelectorAll("[data-action='filterH']").forEach((button) => button.addEventListener("click", selectFilterH));
   document.querySelector(".filter-all").addEventListener("click", showAll);
 
-  document.querySelectorAll("[data-action='filterS']").forEach((button) => button.addEventListener("click", selectFilterS));
+  document
+    .querySelectorAll("[data-action='filterS']")
+    .forEach((button) => button.addEventListener("click", selectFilterS));
 
-  document.querySelector("[data-action='filterP']").addEventListener("click", selectFilterP);
+  document
+    .querySelector("[data-action='filterP']")
+    .addEventListener("click", selectFilterP);
 
-  document.querySelector("[data-action='filterI']").addEventListener("click", selectFilterI);
+  document
+    .querySelector("[data-action='filterI']")
+    .addEventListener("click", selectFilterI);
+
+  document.querySelector(".searchbar").addEventListener("input", searchBar);
 
   // SORTING EVENTS:
   document
@@ -121,6 +129,18 @@ function setUp() {
     .forEach((button) => button.addEventListener("click", selectSort));
 
   loadJSON();
+}
+
+function searchBar(e) {
+  const searchString = e.target.value.toLowerCase();
+  const searchedStudents = allStudents.filter((student) => {
+    return (
+      student.firstname.toLowerCase().includes(searchString) ||
+      student.lastname.toLowerCase().includes(searchString) ||
+      student.house.toLowerCase().includes(searchString)
+    );
+  });
+  displayList(searchedStudents);
 }
 
 async function loadJSON() {
@@ -440,9 +460,11 @@ function displayStudent(student) {
 
     if (student.squad) {
       // Member of the Inquisitory Squad
-      document.querySelector("#popup-sq").textContent = "Member of the Inquisitory Squad";
+      document.querySelector("#popup-sq").textContent =
+        "Member of the Inquisitory Squad";
     } else {
-      document.querySelector("#popup-sq").textContent = "Not Member of the Inquisitory Squad";
+      document.querySelector("#popup-sq").textContent =
+        "Not Member of the Inquisitory Squad";
     }
 
     //FOR HOUSE IMG
@@ -452,7 +474,9 @@ function displayStudent(student) {
     // ).src = `/assets/${student.house}-flag.svg`;
     // document.querySelector("#house-logo").src = `/assets/${student.house}.png`;
 
-    document.querySelector("#house-logo").src = `/house-flags/${student.house}.svg`;
+    document.querySelector(
+      "#house-logo"
+    ).src = `/house-flags/${student.house}.svg`;
 
     document.querySelector("#popup-house").textContent = student.house;
 
@@ -468,7 +492,9 @@ function displayStudent(student) {
       document.querySelector("#student-pic").src = `/students-pics/${student.lastname}_${student.firstname.charAt(0)}.png`;
     }
 
-    document.querySelector("#house-logo").src = `/house-flags/${student.house}.svg`;
+    document.querySelector(
+      "#house-logo"
+    ).src = `/house-flags/${student.house}.svg`;
 
     // document.querySelector("#house-logo").src = `/icons/${student.house}.png`;
 
