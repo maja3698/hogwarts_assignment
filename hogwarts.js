@@ -509,6 +509,24 @@ function displayStudent(student) {
 
   function squadClicked() {
     document.querySelector("#squad-btn").addEventListener("click", closeSquad);
+    // document.querySelector("#squad-btn").addEventListener("click", closeSquad);
+    // if (student.blood === "Pure Blood" || student.house === "Slytherin") {
+    //   if (student.squad === true) {
+    //     student.squad = false;
+
+    //     const index = squadStudents.indexOf(student);
+
+    //     squadStudents.splice(index, 1);
+    //   } else {
+    //     student.squad = true;
+
+    //     squadStudents.push(student);
+    //     console.log(squadStudents);
+    //   }
+    // } else {
+    //   console.log("you cant be squad");
+
+    document.querySelector("#squad-popup").classList.remove("hidden");
     console.log("squad is clicked");
 
     if (systemHacked === false) {
@@ -704,6 +722,10 @@ function closePU() {
 function closeSquad() {
   document.querySelector("#squad-popup").classList.add("hidden");
 }
+// function closeSquad() {
+//   document.querySelector("#squad-popup").classList.add("hidden");
+
+// }
 
 //hacking
 let clicked = true;
@@ -729,7 +751,7 @@ function randomBlood(student) {
     const randomNumber = Math.floor(Math.random() * 2);
     student.blood = types[randomNumber];
     console.log(student.blood);
-  } else if (student.blood === "Half Blood") {
+  } else {
     student.blood = "Pure Blood";
     console.log(student.blood);
   }
