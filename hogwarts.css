@@ -119,7 +119,7 @@
   background-color: #e2a226;
   position: fixed;
   border-radius: 10px;
-  top: 25%;
+  top: 15%;
   left: 25%;
   padding: 6rem;
 }
@@ -149,7 +149,7 @@
   width: 90px;
   position: absolute;
   right: -1.8em;
-  top: 32em;
+  top: 35em;
 }
 
 h1 {
@@ -277,4 +277,9 @@ button:hover {
   height: 1vw;
   border-radius: 5px;
   font-size: 0.9vw;
+}
+
+#student-pic{
+  width: 150px;
+  height: auto;
 }

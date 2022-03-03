@@ -25,6 +25,7 @@ const Student = {
   regStudent: true,
   siblings: false,
   cantbeExpelled: false,
+  hasImg: true,
 };
 
 const mella = {
@@ -170,6 +171,10 @@ function prepareObject(jsonObject) {
   if (cleanMName.startsWith('"')) {
     student.middlename = "";
     student.alias = cleanMName;
+  }
+
+  if (student.lastname === "Leanne" ) {
+    student.hasImg = false;
   }
 
   // BOOLEAN FOR BLOOD STATUS
@@ -651,6 +656,15 @@ function displayStudent(student) {
       document.querySelector("#student-pic").src = `/students-pics/${
         student.lastname
       }_${student.firstname.charAt(0)}.png`;
+    }
+
+    if (student.lastname === "Patil" ) {
+      document.querySelector("#student-pic").src = `/students-pics/${
+        student.lastname}_${student.firstname}.png`
+    }
+
+    if (student.hasImg === false) {
+      document.querySelector("#student-pic").src = `/students-pics/no_img.png`
     }
 
     document.querySelector(
