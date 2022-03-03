@@ -616,6 +616,12 @@ function displayStudent(student) {
       document.querySelector("#popup-sq").textContent =
         "Not Member of the Inquisitory Squad";
     }
+    if (student.prefect) {
+      // Member of the Inquisitory Squad
+      document.querySelector("#popup-pref").textContent = "Prefect";
+    } else {
+      document.querySelector("#popup-pref").textContent = "Not a Prefect";
+    }
 
     //FOR HOUSE IMG
 
