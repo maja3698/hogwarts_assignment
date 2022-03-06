@@ -629,6 +629,7 @@ function displayStudent(student) {
     // ).src = `/assets/${student.house}-flag.svg`;
     // document.querySelector("#house-logo").src = `/assets/${student.house}.png`;
 
+
     document.querySelector(
       "#house-logo"
     ).src = `./house-flags/${student.house}.svg`;
@@ -648,8 +649,8 @@ function displayStudent(student) {
       document.querySelector("#student-pic").src = `./students-pics/${urlImage}`;
     } else {
       document.querySelector("#student-pic").src = `./students-pics/${
-        student.lastname
-      }_${student.firstname.charAt(0)}.png`;
+        student.lastname.charAt(0).toLowerCase()
+      }_${student.firstname.charAt(0).toLowerCase()}.png`;
     }
 
     if (student.lastname === "Patil") {
