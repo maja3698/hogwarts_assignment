@@ -32,7 +32,7 @@ const mella = {
   firstname: "Melania",
   lastname: "Irimia",
   middlename: "Gabriela",
-  image: "/students-pics/irimia_m.png",
+  image: "./students-pics/irimia_m.png",
   house: "Gryffindor",
   status: false,
   blood: "Pure Blood",
@@ -47,7 +47,7 @@ const maja = {
   firstname: "Maja",
   lastname: "Berendsen",
   middlename: "",
-  image: "/students-pics/irimia_m.png",
+  image: "./students-pics/irimia_m.png",
   house: "Ravenclaw",
   status: false,
   blood: "Pure Blood",
@@ -645,9 +645,9 @@ function displayStudent(student) {
       urlImage =
         imglastName + "_" + student.firstname.charAt(0).toLowerCase() + ".png";
       console.log(urlImage);
-      document.querySelector("#student-pic").src = `/students-pics/${urlImage}`;
+      document.querySelector("#student-pic").src = `./students-pics/${urlImage}`;
     } else {
-      document.querySelector("#student-pic").src = `/students-pics/${
+      document.querySelector("#student-pic").src = `./students-pics/${
         student.lastname
       }_${student.firstname.charAt(0)}.png`;
     }
@@ -655,11 +655,11 @@ function displayStudent(student) {
     if (student.lastname === "Patil") {
       document.querySelector(
         "#student-pic"
-      ).src = `/students-pics/${student.lastname}_${student.firstname}.png`;
+      ).src = `./students-pics/${student.lastname}_${student.firstname}.png`;
     }
 
     if (student.hasImg === false) {
-      document.querySelector("#student-pic").src = `/students-pics/no_img.png`;
+      document.querySelector("#student-pic").src = `./students-pics/no_img.png`;
     }
 
     document.querySelector(
