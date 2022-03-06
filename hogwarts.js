@@ -633,6 +633,7 @@ function displayStudent(student) {
     document.querySelector(
       "#house-logo"
     ).src = `./house-flags/${student.house}.svg`;
+    
 
     document.querySelector("#popup-house").textContent = student.house;
 
@@ -649,14 +650,14 @@ function displayStudent(student) {
       document.querySelector("#student-pic").src = `./students-pics/${urlImage}`;
     } else {
       document.querySelector("#student-pic").src = `./students-pics/${
-        student.lastname.charAt(0).toLowerCase()
-      }_${student.firstname.charAt(0).toLowerCase()}.png`;
+        student.lastname.charAt(0).toUpperCase()
+      }_${student.firstname.charAt(0).toUpperCase()}.png`;
     }
 
     if (student.lastname === "Patil") {
       document.querySelector(
         "#student-pic"
-      ).src = `./students-pics/${student.lastname.charAt(0).toLowerCase()}_${student.firstname.charAt(0).toLowerCase()}.png`;
+      ).src = `./students-pics/${student.lastname.charAt(0).toUpperCase()}_${student.firstname.charAt(0).toUpperCase()}.png`;
     }
 
     if (student.hasImg === false) {
@@ -665,7 +666,7 @@ function displayStudent(student) {
 
     document.querySelector(
       "#house-logo"
-    ).src = `/house-flags/${student.house}.svg`;
+    ).src = `./house-flags/${student.house}.svg`;
 
     // document.querySelector("#house-logo").src = `/icons/${student.house}.png`;
 
