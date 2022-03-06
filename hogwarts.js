@@ -2,7 +2,7 @@
 
 let systemHacked = false;
 
-window.addEventListener("DOMContentLoaded", setUp);
+window.addEventListener("DOMContentLoaded", start);
 
 let allStudents = [];
 let filterStudents;
@@ -58,7 +58,7 @@ const maja = {
   cantbeExpelled: true,
 };
 
-function setUp() {
+function start() {
   console.log("ready");
   // TODO: Add event-listeners to filter and sort button
 
@@ -95,11 +95,10 @@ function setUp() {
 
   document.querySelector(".searchbar").addEventListener("input", searchBar);
 
-  document.querySelector(".hack").addEventListener("click", hackTheSystem);
+  document.querySelector(".hack").addEventListener("click", hackSystem);
   document.querySelector(".hack").addEventListener("click", hackTheSystemPU);
   // document.querySelector(".hack").addEventListener("click", openHackedPU);
-
-  loadJSON();
+  runJSON();
 }
 
 function searchBar(e) {
@@ -114,7 +113,7 @@ function searchBar(e) {
   displayList(searchedStudents);
 }
 
-async function loadJSON() {
+async function runJSON() {
   const response = await fetch(
     "https://petlatkea.dk/2021/hogwarts/students.json"
   );
@@ -715,9 +714,9 @@ function closeSquad() {
 
 //hacking
 let clicked = true;
-document.querySelector(".hack").removeEventListener("click", hackTheSystem);
+document.querySelector(".hack").removeEventListener("click", hackSystem);
 
-function hackTheSystem() {
+function hackSystem() {
   console.log("hackpopup");
   systemHacked = true;
   allStudents.forEach(randomBlood);
