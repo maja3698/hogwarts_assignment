@@ -631,7 +631,7 @@ function displayStudent(student) {
 
     document.querySelector(
       "#house-logo"
-    ).src = `/house-flags/${student.house}.svg`;
+    ).src = `./house-flags/${student.house}.svg`;
 
     document.querySelector("#popup-house").textContent = student.house;
 
@@ -647,7 +647,7 @@ function displayStudent(student) {
       console.log(urlImage);
       document.querySelector("#student-pic").src = `./students-pics/${urlImage}`;
     } else {
-      document.querySelector("#student-pic").src = `./students-pics/${
+      document.querySelector("#student-pic").src = `students-pics/${
         student.lastname
       }_${student.firstname.charAt(0)}.png`;
     }
