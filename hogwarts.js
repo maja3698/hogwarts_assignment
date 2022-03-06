@@ -650,14 +650,14 @@ function displayStudent(student) {
       document.querySelector("#student-pic").src = `./students-pics/${urlImage}`;
     } else {
       document.querySelector("#student-pic").src = `./students-pics/${
-        student.lastname.toLowerCase()
-      }_${student.firstname.charAt(0).toLowerCase()}.png`;
+        student.lastname
+      }_${student.firstname}.png`;
     }
 
     if (student.lastname === "Patil") {
       document.querySelector(
         "#student-pic"
-      ).src = `./students-pics/${student.lastname.toLowerCase()}_${student.firstname.charAt(0).toLowerCase()}.png`;
+      ).src = `./students-pics/${student.lastname}_${student.firstname}.png`;
     }
 
     if (student.hasImg === false) {
