@@ -656,7 +656,7 @@ function displayStudent(student) {
     if (student.lastname === "Patil") {
       document.querySelector(
         "#student-pic"
-      ).src = `./students-pics/${student.lastname}_${student.firstname}.png`;
+      ).src = `./students-pics/${student.lastname.charAt(0).toLowerCase()}_${student.firstname.charAt(0).toLowerCase()}.png`;
     }
 
     if (student.hasImg === false) {
